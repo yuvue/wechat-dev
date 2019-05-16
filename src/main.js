@@ -1,7 +1,9 @@
 import Vue from "vue";
 import App from "./App.vue";
-import router from "./router";
-import store from "./store";
+import router from "./routers";
+import store from "./stores";
+import "./plugins/element.js";
+import "normalize.css";
 
 Vue.config.productionTip = false;
 
