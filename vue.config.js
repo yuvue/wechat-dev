@@ -12,10 +12,10 @@ module.exports = {
       .set("view", resolve("src/views"))
       .set("component", resolve("src/components"))
       .set("img", resolve("src/assets/img"))
-      .set("utils", resolve("src/utils"))
-      .set("services", resolve("src/services"))
-      .set("configs", resolve("src/configs"))
-      .set("filters", resolve("src/filters"));
+      .set("util", resolve("src/utils"))
+      .set("service", resolve("src/services"))
+      .set("config", resolve("src/configs"))
+      .set("filter", resolve("src/filters"));
   },
   pluginOptions: {
     "style-resources-loader": {

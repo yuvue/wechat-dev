@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { login } from "services/user";
+import { login } from "service/user";
 export default {
   name: "Login",
   data() {

@@ -20,36 +20,36 @@ export default {
     right: "icon-xiangji"
   },
   "me-moments": {
-    left: "icon-jiantou2",
+    left: "icon-back",
     text: "瞬间",
     right: ""
   },
   "me-collects": {
-    left: "icon-jiantou2",
+    left: "icon-back",
     text: "收藏",
     right: ""
   },
   "chat-id": {
-    left: "icon-jiantou2",
+    left: "icon-back",
     text: "",
     right: "icon-more"
   },
   "contact-id": {
-    left: "icon-jiantou2",
+    left: "icon-back",
     text: "",
     right: "icon-more"
   },
   "contact-id-config": {
-    left: "icon-jiantou2",
+    left: "icon-back",
     text: "资料设置"
   },
   "chat-id-config": {
-    left: "icon-jiantou2",
+    left: "icon-back",
     text: "聊天详情",
     right: ""
   },
   "contact-add": {
-    left: "icon-jiantou2",
+    left: "icon-back",
     text: "添加朋友",
     right: ""
   },
@@ -61,18 +61,18 @@ export default {
   login: {
     text: "登录"
   },
-  "me-info": {
-    left: "icon-jiantou2",
+  "me-edit": {
+    left: "icon-back",
     text: "个人信息",
-    right: ""
+    right: "el-icon-edit"
   },
   "contact-add-verify": {
-    left: "icon-jiantou2",
+    left: "icon-back",
     text: "朋友验证",
     right: ""
   },
   group: {
-    left: "icon-jiantou2",
+    left: "icon-back",
     text: "群聊",
     right: "icon-tianjiaduoyonghu"
   }

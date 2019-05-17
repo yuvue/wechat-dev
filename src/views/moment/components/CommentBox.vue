@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import filterTime from "filters/time";
+import filterTime from "filter/time";
 export default {
   name: "CommentBox",
   props: {

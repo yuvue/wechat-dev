@@ -1,13 +1,13 @@
 <template>
   <div class="header">
     <el-row>
-      <el-col :span="8" class="t-l">
-        <i class="icon " :class="header.left">️</i>
+      <el-col :span="8" class="left">
+        <i class="icon " :class="header.left" @click="leftClick">️</i>
       </el-col>
       <el-col :span="8">
         <p class="t-m">{{ header.text }}</p>
       </el-col>
-      <el-col :span="8" class="t-r">
+      <el-col :span="8" class="right">
         <i class="icon " :class="header.right"></i>
       </el-col>
     </el-row>
@@ -15,21 +15,18 @@
 </template>
 
 <script>
-import header from "configs/header";
+// import header from "config/header";
 
 export default {
   name: "Header",
-  data() {
-    return header;
+  props: {
+    header: Object
   },
-  computed: {
-    header() {
-      let obj = { left: "", right: "", text: "" };
-      return this[this.$route.name] ? this[this.$route.name] : obj;
+  methods: {
+    leftClick() {
+      let icon = this.header.left;
+      icon === "icon-back" && this.$router.back();
     }
-  },
-  mounted() {
-    console.log(this.header);
   }
 };
 </script>
@@ -48,6 +45,25 @@ export default {
   font-size: 1.7rem;
   background-color: @bg;
   z-index: 1000;
+}
+
+@media (min-width: 200px) {
+  .left {
+    text-align: left;
+  }
+  .right {
+    text-align: right;
+  }
+}
+
+@media (min-width: 800px) {
+  .left {
+    text-align: right;
+  }
+
+  .right {
+    text-align: left;
+  }
 }
 
 .icon {
