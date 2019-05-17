@@ -2,7 +2,7 @@
   <div id="panel">
     <slot name="panel-name"></slot>
     <div class="right">
-      <slot name="panel-info"> </slot>
+      <slot name="panel-info"></slot>
     </div>
   </div>
 </template>
@@ -32,5 +32,8 @@ export default {
 
 .right {
   margin-right: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 </style>

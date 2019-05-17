@@ -18,9 +18,6 @@ export default {
     user() {
       return this.$store.getters.getUser;
     }
-  },
-  mounted() {
-    console.log(this.user);
   }
 };
 </script>

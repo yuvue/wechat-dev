@@ -1,4 +1,4 @@
 export default {
-  noFooter: ["login", "register", "me-edit"],
-  blank: []
+  noFooter: ["login", "register"],
+  blank: ["me-edit"]
 };

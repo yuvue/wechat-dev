@@ -2,38 +2,22 @@
   <div class="header">
     <el-row>
       <el-col :span="8" class="left">
-        <i class="icon " :class="header.left" @click="click(header.left)">️</i>
+        <slot name="header-left"></slot>
       </el-col>
       <el-col :span="8">
-        <p class="t-m">{{ header.text }}</p>
+        <p class="t-m">{{ text }}</p>
       </el-col>
       <el-col :span="8" class="right">
-        <i class="icon " :class="header.right" @click="click(header.right)"></i>
+        <slot name="header-right"></slot>
       </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
-import header from "config/header";
-
 export default {
   name: "Header",
-  data() {
-    return header;
-  },
-  computed: {
-    header() {
-      let obj = { left: "", right: "", text: "" };
-      return this[this.$route.name] ? this[this.$route.name] : obj;
-    }
-  },
-  methods: {
-    click(icon) {
-      icon === "icon-back" && this.$router.back();
-      icon === "el-icon-edit" && this.$store.commit("meEdit");
-    }
-  }
+  props: ["text"]
 };
 </script>
 
@@ -55,6 +39,16 @@ export default {
 
 .icon {
   font-size: 2rem;
+}
+
+@media (min-width: 300px) {
+  .left {
+    .t-l;
+  }
+
+  .right {
+    .t-r;
+  }
 }
 
 @media (min-width: 800px) {

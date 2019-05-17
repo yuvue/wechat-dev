@@ -1,66 +1,47 @@
 <template>
   <div>
-    <div class="c-1">
-      <Panel>
-        <template slot="panel-name">
-          <div>头像</div>
-        </template>
-        <template slot="panel-info">
-          <img :src="user.avatar" alt="" />
-        </template>
-      </Panel>
-
-      <Panel>
-        <template slot="panel-name">
-          <div>名字</div>
-        </template>
-        <template slot="panel-info">
-          <p>{{ user.nickname }}</p>
-        </template>
-      </Panel>
-
-      <Panel>
-        <template slot="panel-name">
-          <div>微信号</div>
-        </template>
-        <template slot="panel-info">
-          <p>{{ user.email }}</p>
-        </template>
-      </Panel>
-    </div>
+    <Info v-if="!isEdit" @edit="edit" :user="user"></Info>
+    <InfoEdit
+      v-else
+      @onSubmit="submit"
+      @onCancel="edit"
+      :user="user"
+    ></InfoEdit>
   </div>
 </template>
 
 <script>
-import Panel from "component/Panel";
-import Header from "component/layout/Header";
+import Info from "./components/Info";
+import InfoEdit from "./components/InfoEdit";
+import { userEdit } from "service/user";
+
 export default {
-  mixin: "Header",
   name: "Edit",
-  components: {
-    Panel,
-    Header
+  data() {
+    return {
+      user: this.$store.getters.getUser,
+      isEdit: false
+    };
   },
-  computed: {
-    user() {
-      return this.$store.getters.getUser;
+  components: {
+    Info,
+    InfoEdit
+  },
+  methods: {
+    edit() {
+      this.isEdit = !this.isEdit;
+    },
+    async submit() {
+      let { nickname, address, email, signature, _id } = this.user;
+      let res = await userEdit({ nickname, address, email, signature, _id });
+      if (res.code === 0) {
+        this.isEdit = false;
+        console.log(res.user);
+        this.$store.dispatch("setUser", res.user);
+      }
     }
   }
 };
 </script>
 
-<style lang="less" scoped>
-img {
-  width: 60px;
-  height: 60px;
-  border-radius: 6px;
-}
-
-@media (min-width: 800px) {
-  .c-1 {
-    width: 600px;
-    top: 20vh;
-    .x-ctr;
-  }
-}
-</style>
+<style lang="less" scoped></style>

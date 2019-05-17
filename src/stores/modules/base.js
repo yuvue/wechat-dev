@@ -1,6 +1,9 @@
 const state = {
   routeFrom: "/chat", // 访问search页面前的页面路由名称
-  scrollY: {}
+  scrollY: {},
+
+  // 头部
+  isEdit: false // 个人信息是否编辑状态
 };
 
 const mutations = {
@@ -12,6 +15,9 @@ const mutations = {
       ...state.scrollY,
       ...val
     };
+  },
+  meEdit(state) {
+    state.isEdit = !state.isEdit;
   }
 };
 
