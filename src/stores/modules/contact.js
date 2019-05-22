@@ -1,8 +1,9 @@
 import { _setRemark } from "@/services/contact";
-import pinyin from "js-pinyin";
+import { _sendMessage } from "@/services/message";
 
 const SET_LIST = "SET_LIST";
 const ADD_CONTACT = "ADD_CONTACT";
+const SEND_MESSAGE = "SEND_MESSAGE";
 const GET_MESSAGE = "GET_MESSAGE";
 const SET_CUR_CONTACT = "SET_CUR_CONTACT";
 const SET_REMARK = "SET_REMARK";
@@ -27,7 +28,7 @@ const mutations = {
   },
   [ADD_CONTACT](state, contact) {
     console.log("addcontact", contact);
-    state.contactList.push(contact);
+    // state.contactList.push(contact);
   },
   [SET_CUR_CONTACT](state, val) {
     typeof val === "object" && (state.curContact = val);
@@ -39,6 +40,11 @@ const mutations = {
   [GET_MESSAGE](state, val) {
     state.contactList.some(c => {
       c.contact_id === val.from_id && c.messageList.push(val);
+    });
+  },
+  [SEND_MESSAGE](state, val) {
+    state.contactList.some(c => {
+      c.contact_id === val.to_id && c.messageList.push(val);
     });
   },
   [SET_REMARK](state, val) {
@@ -63,6 +69,10 @@ const actions = {
   async setRemark({ commit }, val) {
     let { data } = await _setRemark(val);
     data && commit(SET_REMARK, data);
+  },
+  async sendMessage({ commit }, msg) {
+    let { data } = await _sendMessage(msg);
+    commit(SEND_MESSAGE, data);
   }
 };
 

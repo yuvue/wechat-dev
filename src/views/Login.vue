@@ -45,15 +45,14 @@ export default {
         this.$store.dispatch("setUser", res.user);
         this.$store.dispatch("setList", res.contacts);
         this.$router.push("/");
-        // this.$store.dispatch("socket/connect");
+        this.$store.dispatch("connect");
       } catch (e) {
         console.log(e);
       }
     }
   },
   mounted() {
-    console.log(this.$ws);
-    console.log(this);
+    this.$store.dispatch("close");
   }
 };
 </script>

@@ -8,18 +8,42 @@ import io from "socket.io-client";
 
 const socketURL = "ws://127.0.0.1:3000";
 
+let ws = null;
+
+const CONNECT = "CONNECT";
+const DISCONNECT = "DISCONNECT";
+
 /**
  * 用户信息
  *
  * @type {object}
  */
 const state = {
-  ws: null
+  connected: false
+};
+
+const mutations = {
+  [CONNECT](state) {
+    state.connected = true;
+  },
+  [DISCONNECT](state) {
+    state.connected = true;
+  }
 };
 
 const actions = {
-  connect({ commit }) {
-    let ws = io(socketURL);
+  connect({ commit, state }) {
+    if (ws && ws.connected) {
+      console.log("connec");
+      ws.close();
+    }
+    if (ws) {
+      console.log("ws", ws);
+    }
+    ws = io(socketURL);
+    ws.on("connect", () => {
+      commit(CONNECT);
+    });
     ws.on(`error`, data => {
       Message.error(data.msg);
     });
@@ -28,15 +52,21 @@ const actions = {
       console.log(data);
       data.type && commit(data.type, data.data);
     });
-    state.ws = ws;
+    ws.on("disconnect", () => {
+      Message.warning("失去socket连接");
+      commit(DISCONNECT);
+    });
   },
   close({ state }) {
-    // state.ws && state.ws.close();
+    ws && ws.close();
+    ws = null;
+    state.connected = false;
   }
 };
 
 const socket = {
   state,
+  mutations,
   actions
 };
 

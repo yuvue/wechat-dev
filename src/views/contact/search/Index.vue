@@ -21,7 +21,7 @@
           class="mt-20"
         ></MeCard>
         <section class="mt-40">
-          <ButtonPanel text="添加好友" @clickPanel="addFriend"></ButtonPanel>
+          <ButtonPanel text="添加好友" @panelClick="addFriend"></ButtonPanel>
         </section>
       </section>
     </main>
@@ -58,8 +58,7 @@ export default {
       code === 0 && (this.user = user);
     },
     addFriend() {
-      // let user_id = this.$store.getters['modules/user/getUserId']
-      // addContact(user_id)
+      console.log("add");
       this.$router.push({
         name: "contactSearchVerify",
         params: {

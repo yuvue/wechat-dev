@@ -20,13 +20,13 @@
       <MenuPanelArrow
         name="设置备注"
         style="margin-top: 20px"
-        @menuClick="$router.push(`/contact/${contact.contact_id}/remark`)"
+        @menuClick="$router.push(`/contact/${contact.remark}/remark`)"
       ></MenuPanelArrow>
       <ButtonPanel
         style="margin-top: 40px"
         text="发消息"
         icon="el-icon-chat-round"
-        @panelClick="$router.push(`/chat/${contact._id}`)"
+        @panelClick="$router.push(`/chat/${contact.remark}`)"
       >
       </ButtonPanel>
     </main>

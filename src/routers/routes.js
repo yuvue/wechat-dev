@@ -6,24 +6,6 @@ export default [
     name: "chatId"
   },
   {
-    path: "/contact/:id/config",
-    component: () => import("v/contact/_id/Config"),
-    meta: {},
-    name: "contactIdConfig"
-  },
-  {
-    path: "/contact/:id",
-    component: () => import("v/contact/_id/Index"),
-    meta: {},
-    name: "contactId"
-  },
-  {
-    path: "/contact/:id/remark",
-    component: () => import("v/contact/_id/Remark"),
-    meta: {},
-    name: "contactIdRemark"
-  },
-  {
     path: "/contact/add",
     component: () => import("v/contact/Add"),
     meta: {},
@@ -46,6 +28,24 @@ export default [
     component: () => import("v/contact/search/Verify"),
     meta: {},
     name: "contactSearchVerify"
+  },
+  {
+    path: "/contact/:id/config",
+    component: () => import("v/contact/_id/Config"),
+    meta: {},
+    name: "contactIdConfig"
+  },
+  {
+    path: "/contact/:id",
+    component: () => import("v/contact/_id/Index"),
+    meta: {},
+    name: "contactId"
+  },
+  {
+    path: "/contact/:id/remark",
+    component: () => import("v/contact/_id/Remark"),
+    meta: {},
+    name: "contactIdRemark"
   },
   {
     path: "/",

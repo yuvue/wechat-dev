@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     async onSubmit() {
-      let id = this.$route.params.id;
+      let id = this.$store.state.contact.curContact.contact_id;
       let remark = this.remark;
       this.$store.dispatch("setRemark", { id, remark });
     }

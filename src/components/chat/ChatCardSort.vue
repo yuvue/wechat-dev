@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     itemClick(contact) {
-      this.$router.push(`/contact/${contact._id}`);
+      this.$router.push(`/contact/${contact.remark}`);
       this.$store.dispatch("setCurContact", contact);
     }
   }
