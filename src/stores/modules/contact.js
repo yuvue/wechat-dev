@@ -1,191 +1,100 @@
-import axios from "axios";
+import { _setRemark } from "@/services/contact";
+import pinyin from "js-pinyin";
+
+const SET_LIST = "SET_LIST";
+const ADD_CONTACT = "ADD_CONTACT";
+const GET_MESSAGE = "GET_MESSAGE";
+const SET_CUR_CONTACT = "SET_CUR_CONTACT";
+const SET_REMARK = "SET_REMARK";
 
 const state = {
-  contactList: [
-    {
-      remark: "",
-      avatar: "",
-      contact_id: "",
-      signature: "",
-      messageList: [
-        {
-          text: "",
-          tag: "send",
-          time: ""
-        }
-      ],
-      ContactType: "friend"
-    }
-  ],
-  currentContact: {
-    remark: "",
-    avatar: "",
-    contact_id: "",
-    signature: "",
-    messageList: [
-      {
-        text: "",
-        tag: "send",
-        time: ""
-      }
-    ]
-  }
+  contactList: []
 };
 
+function last(arr) {
+  let len = arr.length;
+  if (len > 0) return arr[len - 1];
+  else return "";
+}
+
 const mutations = {
-  // 初始化state
-  setContactList(state, val) {
+  /**
+   * 设置联系人列表
+   * @param {object} val 联系人列表
+   */
+  [SET_LIST](state, val) {
     state.contactList = val;
   },
-  // 加入联系人
-  addContact(state, contact) {
+  [ADD_CONTACT](state, contact) {
+    console.log("addcontact", contact);
     state.contactList.push(contact);
   },
-  // 读消息
-  readMessage(state, contact_id) {
-    let contact = state.contactList.filter(
-      contact => contact["contact_id"] === contact_id
-    )[0];
-    contact["messageList"].forEach(message => (message["hasRead"] = true));
+  [SET_CUR_CONTACT](state, val) {
+    typeof val === "object" && (state.curContact = val);
+    typeof val === "string" &&
+      (state.curContact = state.contactList.filter(
+        ({ _id }) => _id === val
+      )[0]);
   },
-  // 发消息
-  sendMessage(state, message) {
-    state.contactList
-      .filter(contact => contact["contact_id"] === message["to_id"])[0]
-      ["messageList"].push(message);
+  [GET_MESSAGE](state, val) {
+    state.contactList.some(c => {
+      c.contact_id === val.from_id && c.messageList.push(val);
+    });
   },
-  getMessage(state, message) {
-    if (message["msg"]["avatar"]) {
-      // 群消息
-      state.contactList
-        .filter(contact => contact["contact_id"] === message["to_id"])[0]
-        ["messageList"].push(message);
-    } else {
-      // 个人消息
-      state.contactList
-        .filter(contact => contact["contact_id"] === message["from_id"])[0]
-        ["messageList"].push(message);
-    }
-  },
-  setCurrentContact(state, contact_id) {
-    let contact = state.contactList.filter(
-      contact => contact["contact_id"] === contact_id
-    )[0];
-    state.currentContact = contact;
+  [SET_REMARK](state, val) {
+    state.contactList.some(c => {
+      c.contact_id === val.id &&
+        (c.remark = val.remark) &&
+        (c.alpha = val.alpha);
+    });
   }
 };
 
 const actions = {
-  setContactList({ commit }, val) {
-    commit("setContactList", val);
+  setList({ commit }, val) {
+    commit(SET_LIST, val);
   },
-  readMessage({ commit }, contact_id) {
-    commit("readMessage", contact_id);
-    axios.post("/api/messages/read", { contact_id });
+  addContact({ commit }, val) {
+    commit(ADD_CONTACT, val);
   },
-  sendMessage({ state, commit, rootState }, msg) {
-    let from_id = rootState["user"]["user"]["_id"];
-    let to_id = state["currentContact"]["contact_id"];
-    let time = new Date().getTime();
-    let fd = new FormData();
-    if (msg["type"] === "text") {
-      let message = { from_id, to_id, msg, time };
-      commit("sendMessage", { ...message, hasRead: true });
-      fd.append("from_id", from_id);
-      fd.append("to_id", to_id);
-      fd.append("type", msg["type"]);
-      fd.append("text", msg["text"]);
-      axios.post("/api/messages/add", fd);
-    }
-    if (msg["type"] === "audio") {
-      fd.append("from_id", from_id);
-      fd.append("to_id", to_id);
-      fd.append("type", msg["type"]);
-      fd.append("blob", msg["blob"]);
-      fd.append("length", Math.round(msg["time"]));
-      axios.post("/api/messages/add", fd);
-    }
+  setCurContact({ commit }, val) {
+    commit(SET_CUR_CONTACT, val);
   },
-  setCurrentContact({ commit }, contact_id) {
-    commit("setCurrentContact", contact_id);
+  async setRemark({ commit }, val) {
+    let { data } = await _setRemark(val);
+    data && commit(SET_REMARK, data);
   }
 };
 
 const getters = {
-  getChatList(state) {
-    return state.contactList
-      .map(({ remark, messageList, avatar, contact_id }) => {
-        if (messageList.length === 0) return;
-        let ml = messageList.filter(
-          ({ hasRead, from_id }) => hasRead === false && contact_id === from_id
-        );
-        return {
-          contact_id,
-          avatar,
-          remark,
-          endMsg: messageList.last().msg,
-          time: messageList.last().time,
-          unReadCount: ml.length
-        };
-      })
-      .filter(item => item !== undefined)
-      .sort((a, b) => b["time"] - a["time"]);
-  },
-  getCurrentMessageList(state) {
-    return state.currentContact["messageList"];
-  },
-  getCurrentContact(state) {
-    return state.currentContact;
-  },
-  getAllNotReadCount: state => user_id => {
-    let count = 0;
-    state.contactList.forEach(contact => {
-      if (contact["messageList"].length === 0) return;
-      contact["messageList"]
-        .filter(({ from_id }) => from_id !== user_id)
-        .forEach(message => {
-          if (message["hasRead"] === false) count += 1;
-        });
-    });
-    return count;
-  },
   getContacts(state) {
-    let contacts = state.contactList.filter(
-      ({ contactType }) => contactType === "friend"
-    );
-    let rst = {};
-    contacts.sort((a, b) => {
-      if (a["alphaFull"] < b["alphaFull"]) {
-        return -1;
-      } else {
-        return 1;
-      }
-    });
-    for (let i = 0; i < contacts.length; i++) {
-      let alpha = contacts[i]["alpha"];
-      if (typeof rst[`${alpha}`] === "undefined") {
-        rst[`${alpha}`] = [];
-        rst[`${alpha}`].push(contacts[i]);
-      } else {
-        rst[`${alpha}`].push(contacts[i]);
-      }
-    }
-    return rst;
+    let contacts = state.contactList
+      .filter(
+        ({ contactType, config }) => contactType === "friend" && config === 1
+      )
+      .sort((a, b) => (a["alpha"] < b["alpha"] ? -1 : 1))
+      .reduce((pre, cur) => {
+        let alpha = cur.alpha[0];
+        !pre[alpha] && (pre[alpha] = []);
+        pre[alpha].push(cur);
+        return pre;
+      }, {});
+    return contacts;
   },
-  getContactEmails(state) {
+  chats(state) {
     return state.contactList
-      .filter(({ contactType }) => contactType === "friend")
-      .map(item => item["email"]);
-  },
-  getGroup(state) {
-    return state.contactList.filter(
-      ({ contactType }) => contactType === "group"
-    );
-  },
-  getContactIdList(state) {
-    return state.contactList
-      .filter(({ contactType }) => contactType === "friend")
-      .map(({ contact_id }) => contact_id);
+      .filter(
+        ({ contactType, config, messageList }) =>
+          contactType === "friend" && config === 1 && messageList.length > 0
+      )
+      .sort((a, b) => last(a.messageList)["time"] < last(b.messageList)["time"])
+      .map(({ avatar, remark, _id, messageList }) => ({
+        avatar,
+        remark,
+        _id,
+        msg: last(messageList),
+        time: last(messageList).time
+      }));
   }
 };
 

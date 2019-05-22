@@ -9,11 +9,12 @@ module.exports = {
   chainWebpack: config => {
     config.resolve.alias
       .set("@", resolve("src"))
-      .set("view", resolve("src/views"))
-      .set("component", resolve("src/components"))
+      .set("v", resolve("src/views"))
+      .set("c", resolve("src/components"))
+      .set("css", resolve("src/assets/css"))
       .set("img", resolve("src/assets/img"))
       .set("util", resolve("src/utils"))
-      .set("service", resolve("src/services"))
+      .set("services", resolve("src/services"))
       .set("config", resolve("src/configs"))
       .set("filter", resolve("src/filters"));
   },
@@ -33,19 +34,9 @@ module.exports = {
         target: "http://localhost:3000",
         changeOrigin: true
       },
-      "/tool/location": {
-        target: "http://ip.taobao.com/service/getIpInfo.php",
-        changeOrigin: true,
-        pathRewrite: {
-          "^/tool/location": ""
-        }
-      },
       "/api": {
         target: "http://localhost:3000",
-        changeOrigin: true,
-        pathRewrite: {
-          "^/api": ""
-        }
+        changeOrigin: true
       },
       "/upload": {
         target: "http://localhost:3000",

@@ -1,84 +1,43 @@
-let baseSocketURL =
-  process.env.NODE_ENV === "development"
-    ? "ws://localhost:3000/chat"
-    : "ws://47.96.72.48/chat";
+/**
+ * @author Sharp
+ * @date 2019-05-18
+ * @Description: 登录用户的Vuex
+ */
+import { Message } from "element-ui";
+import io from "socket.io-client";
 
+const socketURL = "ws://127.0.0.1:3000";
+
+/**
+ * 用户信息
+ *
+ * @type {object}
+ */
 const state = {
-  ws: ""
-};
-
-const mutations = {
-  wssendMessage(state, message) {
-    console.log(message);
-    state["ws"].send(JSON.stringify(message));
-  }
+  ws: null
 };
 
 const actions = {
-  wson({ state, commit, dispatch }) {
-    let ws = new WebSocket(baseSocketURL);
-    ws.onmessage = ({ data }) => {
-      let message = null;
-      try {
-        message = JSON.parse(data);
-      } catch (e) {
-        return;
-      }
-      if (message["type"] === "msgToDest") {
-        commit("getMessage", message);
-      }
-      if (message["type"] === "msgToUser") {
-        commit("sendMessage", message);
-      }
-      if (message["type"] === "addUser") {
-        delete message["type"];
-        commit("addFriend", message);
-      }
-      if (
-        message["type"] === "addUserConfig" ||
-        message["type"] === "createdGroup"
-      ) {
-        delete message["type"];
-        commit("addContact", message);
-      }
-      if (message["type"] === "discoverLike") {
-        delete message["type"];
-        commit("likeDiscover", message);
-      }
-      if (message["type"] === "discoverComment") {
-        delete message["type"];
-        commit("discoverComment", message);
-      }
-      if (message["type"] === "discoverCollect") {
-        delete message["type"];
-        commit("discoverCollect", message);
-      }
-      if (message["type"] === "createdDiscover") {
-        delete message["type"];
-        dispatch("addDiscover", message);
-      }
-    };
+  connect({ commit }) {
+    let ws = io(socketURL);
+    ws.on(`error`, data => {
+      Message.error(data.msg);
+    });
+    ws.on(`news`, data => {
+      data.msg && Message.info(data.msg);
+      console.log(data);
+      data.type && commit(data.type, data.data);
+    });
     state.ws = ws;
   },
-  wsclose({ state }) {
-    console.log(state.ws === null);
-    if (state.ws !== null) {
-      state.ws.close();
-    }
-  }
-};
-
-const getters = {
-  getsocket(state) {
-    return state.ws;
+  close({ state }) {
+    // state.ws && state.ws.close();
   }
 };
 
 const socket = {
   state,
-  mutations,
-  actions,
-  getters
+  actions
 };
 
 export default socket;

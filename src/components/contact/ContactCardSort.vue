@@ -1,0 +1,42 @@
+<template>
+  <div>
+    <div v-for="alpha in Object.keys(contacts)">
+      <div class="letter">{{ alpha }}</div>
+      <div v-for="i in contacts[alpha]">
+        <ContactItem
+          :avatar="i.avatar"
+          :name="i.remark"
+          @itemClick="itemClick(i)"
+        ></ContactItem>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { mapState } from "vuex";
+import ContactItem from "./ContactItem";
+export default {
+  components: {
+    ContactItem
+  },
+  computed: {
+    contacts() {
+      return this.$store.getters["getContacts"];
+    }
+  },
+  methods: {
+    itemClick(contact) {
+      this.$router.push(`/contact/${contact.contact_id}`);
+      this.$store.dispatch("setCurContact", contact);
+    }
+  }
+};
+</script>
+
+<style lang="less">
+.letter {
+  width: 100%;
+  padding: 4px 10px;
+}
+</style>

@@ -1,38 +1,93 @@
 export default [
   {
-    path: "/",
-    name: "chat",
-    component: () => import("../views/chat")
+    path: "/chat/:id",
+    component: () => import("v/chat/_id/Index"),
+    meta: {},
+    name: "chatId"
+  },
+  {
+    path: "/contact/:id/config",
+    component: () => import("v/contact/_id/Config"),
+    meta: {},
+    name: "contactIdConfig"
+  },
+  {
+    path: "/contact/:id",
+    component: () => import("v/contact/_id/Index"),
+    meta: {},
+    name: "contactId"
+  },
+  {
+    path: "/contact/:id/remark",
+    component: () => import("v/contact/_id/Remark"),
+    meta: {},
+    name: "contactIdRemark"
+  },
+  {
+    path: "/contact/add",
+    component: () => import("v/contact/Add"),
+    meta: {},
+    name: "contactAdd"
   },
   {
     path: "/contact",
-    name: "contact",
-    component: () => import("../views/contact")
+    component: () => import("v/contact/Index"),
+    meta: {},
+    name: "contact"
   },
   {
-    path: "/moment",
-    name: "moment",
-    component: () => import("../views/moment")
+    path: "/contact/search",
+    component: () => import("v/contact/search/Index"),
+    meta: {},
+    name: "contactSearch"
   },
   {
-    path: "/me",
-    name: "me",
-    component: () => import("../views/me")
+    path: "/contact/search/verify",
+    component: () => import("v/contact/search/Verify"),
+    meta: {},
+    name: "contactSearchVerify"
+  },
+  {
+    path: "/",
+    component: () => import("v/Index"),
+    meta: {},
+    name: "index"
   },
   {
     path: "/login",
-    name: "login",
-    component: () => import("../views/login")
+    component: () => import("v/Login"),
+    meta: {},
+    name: "login"
+  },
+  {
+    path: "/me/edit",
+    component: () => import("v/me/Edit"),
+    meta: {},
+    name: "meEdit"
+  },
+  {
+    path: "/me",
+    component: () => import("v/me/Index"),
+    meta: {},
+    name: "me"
+  },
+  {
+    path: "/moment",
+    component: () => import("v/Moment"),
+    meta: {},
+    name: "moment"
   },
   {
     path: "/register",
-    name: "register",
-    component: () => import("../views/register")
+    component: () => import("v/Register"),
+    meta: {},
+    name: "register"
   },
-
   {
-    path: "/me/edit",
-    name: "me-edit",
-    component: () => import("../views/me/Edit")
+    path: "/error",
+    component: () => import("v/Error"),
+    meta: {},
+    name: "error",
+    alias: "*"
   }
 ];

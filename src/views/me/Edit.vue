@@ -1,47 +1,107 @@
 <template>
   <div>
-    <Info v-if="!isEdit" @edit="edit" :user="user"></Info>
-    <InfoEdit
-      v-else
-      @onSubmit="submit"
-      @onCancel="edit"
-      :user="user"
-    ></InfoEdit>
+    <MeHeader
+      :is-edit="isEdit"
+      @editUser="editUser"
+      @changeEditState="changeEditState"
+      @onSubmit="onSubmit"
+    ></MeHeader>
+    <main class="main-top">
+      <div class="c-1">
+        <AvatarBar
+          :avatar="user.avatar"
+          :is-edit="isEdit"
+          @editUser="editUser"
+        ></AvatarBar>
+        <NameBar
+          :nickname="user.nickname"
+          :is-edit="isEdit"
+          @editUser="editUser"
+        ></NameBar>
+        <WechatNumberBar
+          :email="user.email"
+          :is-edit="isEdit"
+          @editUser="editUser"
+        ></WechatNumberBar>
+        <AddressBar
+          :address="user.address"
+          :is-edit="isEdit"
+          @editUser="editUser"
+        ></AddressBar>
+        <SignatureBar
+          :signature="user.signature"
+          :is-edit="isEdit"
+          @editUser="editUser"
+        ></SignatureBar>
+      </div>
+    </main>
   </div>
 </template>
 
 <script>
-import Info from "./components/Info";
-import InfoEdit from "./components/InfoEdit";
-import { userEdit } from "service/user";
+import { mapState } from "vuex";
+import { userEdit } from "@/services/user";
+import MeHeader from "c/me/MeHeader";
+import AddressBar from "c/me/bars//AddressBar";
+import AvatarBar from "c/me/bars//AvatarBar";
+import NameBar from "c/me/bars//NameBar";
+import SignatureBar from "c/me/bars//SignatureBar";
+import WechatNumberBar from "c/me/bars//WechatNumberBar";
 
 export default {
   name: "Edit",
   data() {
     return {
-      user: this.$store.getters.getUser,
+      fileList: [],
       isEdit: false
     };
   },
   components: {
-    Info,
-    InfoEdit
+    MeHeader,
+    AddressBar,
+    AvatarBar,
+    NameBar,
+    SignatureBar,
+    WechatNumberBar
+  },
+  computed: {
+    ...mapState({
+      user: state => state.user.user
+    })
   },
   methods: {
-    edit() {
+    changeEditState() {
       this.isEdit = !this.isEdit;
     },
-    async submit() {
-      let { nickname, address, email, signature, _id } = this.user;
-      let res = await userEdit({ nickname, address, email, signature, _id });
+    async onSubmit() {
+      let res = await userEdit(this.user);
+      console.log(this.user);
       if (res.code === 0) {
         this.isEdit = false;
-        console.log(res.user);
         this.$store.dispatch("setUser", res.user);
       }
+    },
+    editUser(key, value) {
+      this.user[key] = value;
     }
   }
 };
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+@import "~css/global.less";
+input[type="file"] {
+  width: 86px;
+  height: 30px;
+  position: absolute;
+  right: 30px;
+  opacity: 0;
+}
+@media (min-width: 800px) {
+  .c-1 {
+    width: 600px;
+    top: 20vh;
+    .x-ctr;
+  }
+}
+</style>

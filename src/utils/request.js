@@ -1,7 +1,10 @@
 import axios from "axios";
-import Vue from "vue";
+import qs from "querystring";
+import { Message } from "element-ui";
 
-const Alert = new Vue().$message;
+const concatURL = (url, obj) => {
+  return `${url}/?${qs.stringify(obj)}`;
+};
 
 const instance = axios.create({
   baseURL: "/api",
@@ -14,17 +17,22 @@ export default (method, url, params = {}, option = {}) => {
     return;
   }
 
-  console.log(Alert);
+  if (method === "get") {
+    url = concatURL(url, params);
+  }
+
   return new Promise((y, n) => {
     instance[method](url, params, { ...option })
       .then(res => {
-        // Alert.success(res.data.msg);
+        res && res.data && res.data.msg && Message.success(res.data.msg);
         y(res.data);
       })
       .catch(err => {
-        console.log(err);
-        // Alert.error(err.response.data.msg);
-        // n(err.response.data);
+        err &&
+          err.response &&
+          err.response.data &&
+          err.response.data.msg &&
+          Message.error(err.response.data.msg);
       });
   });
 };
