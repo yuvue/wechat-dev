@@ -1,4 +1,5 @@
 const path = require("path");
+const manifestPlugin = require("pwa-manifest-webpack-plugin");
 
 function resolve(dir) {
   return path.join(__dirname, dir);
@@ -22,6 +23,21 @@ module.exports = {
     "style-resources-loader": {
       preProcessor: "less",
       patterns: ["/Users/sharp/Project/wechat/src/assets/css/index.less"]
+    }
+  },
+  pwa: {
+    name: "My App",
+    themeColor: "#4DBA87",
+    msTileColor: "#000000",
+    appleMobileWebAppCapable: "yes",
+    appleMobileWebAppStatusBarStyle: "black",
+
+    // configure the workbox plugin
+    workboxPluginMode: "InjectManifest",
+    workboxOptions: {
+      // swSrc is required in InjectManifest mode.
+      swSrc: "sw.js"
+      // ...other Workbox options...
     }
   },
   devServer: {
