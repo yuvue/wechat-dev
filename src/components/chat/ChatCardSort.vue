@@ -3,21 +3,25 @@
     <div v-for="alpha in Object.keys(contacts)">
       <div class="letter">{{ alpha }}</div>
       <div v-for="i in contacts[alpha]">
-        <ContactItem
+        <ChatItem
+          v-for="i in chats"
+          :key="i._id"
           :avatar="i.avatar"
+          :msg="i.msg"
           :name="i.remark"
-          @itemClick="itemClick(i)"
-        ></ContactItem>
+          :time="i.time"
+          :id="i._id"
+        ></ChatItem>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import ContactItem from "./ContactItem";
+import ChatItem from "./ChatItem";
 export default {
   components: {
-    ContactItem
+    ChatItem
   },
   computed: {
     contacts() {

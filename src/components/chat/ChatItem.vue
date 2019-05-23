@@ -1,14 +1,17 @@
 <template>
   <div class="item" @click="itemClick">
     <div class="item-part item-part-left">
-      <img :src="avatar" alt="#" />
+      <img :src="contact.avatar" alt="#" />
+      <div class="count" v-show="contact.unReadCount">
+        {{ contact.unReadCount }}
+      </div>
     </div>
     <div class="item-part item-part-right">
       <p class="name">
-        {{ name }}
-        <b class="time">{{ time | _time }}</b>
+        {{ contact.remark }}
+        <b class="time">{{ contact.time | _time }}</b>
       </p>
-      <p class="msg">{{ msg | _msg }}</p>
+      <p class="msg">{{ contact.msg | _msg }}</p>
     </div>
   </div>
 </template>
@@ -18,10 +21,10 @@ import _time from "@/utils/filterTime";
 
 export default {
   name: "ChatItem",
-  props: ["name", "time", "msg", "avatar", "id"],
+  props: ["contact"],
   methods: {
     itemClick() {
-      let id = this.id;
+      let id = this.contact._id;
       this.$router.push(`/chat/${id}`);
       this.$store.dispatch("setCurContact", id);
     }
@@ -57,6 +60,7 @@ export default {
 
 .item-part-left {
   width: 48px;
+  position: relative;
 }
 
 .item-part-right {
@@ -94,5 +98,19 @@ img {
   color: @font-light-2;
   font-size: 1.2rem;
   font-weight: 100;
+}
+
+.count {
+  position: absolute;
+  height: 18px;
+  padding: 0 5.4px;
+  line-height: 18px;
+  text-align: center;
+  color: white;
+  background-color: red;
+  border-radius: 50%;
+  right: 0;
+  top: 0;
+  transform: translate(50%, -50%);
 }
 </style>

@@ -3,7 +3,7 @@
     <section>
       <i class="icon icon-yuyin" @click="$parent.showSpeak = true"></i>
     </section>
-    <section>
+    <section @keyup.enter="click">
       <el-input v-model="text" />
     </section>
     <section>
@@ -13,8 +13,6 @@
 </template>
 
 <script>
-var BenzAMRRecorder = require("benz-amr-recorder");
-
 export default {
   name: "ChatFooterText",
   data() {
@@ -29,6 +27,7 @@ export default {
         text: this.text
       };
       this.$emit("send", data);
+      this.text = "";
     }
   }
 };

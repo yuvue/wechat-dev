@@ -2,7 +2,11 @@
   <div class="footer t-c">
     <el-col :span="6">
       <router-link to="/" exact>
-        <i class="icon icon-weixin"></i>
+        <i class="icon icon-weixin">
+          <div class="circle" v-show="count">
+            {{ count }}
+          </div>
+        </i>
         <p>微信</p>
       </router-link>
     </el-col>
@@ -35,7 +39,12 @@
 
 <script>
 export default {
-  name: "BaseFooter"
+  name: "BaseFooter",
+  computed: {
+    count() {
+      return this.$store.getters.allUnReadCount(this.$store.getters.user._id);
+    }
+  }
 };
 </script>
 
@@ -55,6 +64,25 @@ export default {
 
 .icon {
   font-size: 2.5rem;
+}
+
+.icon-weixin {
+  position: relative;
+
+  .circle {
+    position: absolute;
+    height: 18px;
+    padding: 0 5.4px;
+    line-height: 18px;
+    text-align: center;
+    color: white;
+    font-size: 1rem;
+    background-color: red;
+    border-radius: 50%;
+    right: 0;
+    top: 0;
+    transform: translate(50%, -50%);
+  }
 }
 
 .router-link-active {

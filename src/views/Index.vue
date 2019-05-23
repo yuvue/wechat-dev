@@ -1,23 +1,14 @@
 <template>
   <div>
-    <BaseHeader text="微信"> </BaseHeader>
+    <BaseHeader :text="count ? `微信 (${count})` : '微信'"> </BaseHeader>
     <main class="main-top main-bottom">
-      <ChatItem
-        v-for="i in chats"
-        :key="i._id"
-        :avatar="i.avatar"
-        :msg="i.msg"
-        :name="i.remark"
-        :time="i.time"
-        :id="i._id"
-      ></ChatItem>
+      <ChatItem v-for="i in chats" :key="i._id" :contact="i"></ChatItem>
     </main>
     <BaseFooter> </BaseFooter>
   </div>
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
 import BaseFooter from "c/app/BaseFooter";
 import BaseHeader from "c/app/BaseHeader";
 import ChatItem from "c/chat/ChatItem";
@@ -52,9 +43,18 @@ export default {
       }
     ]
   },
+  data() {
+    return {
+      user_id: this.$store.getters.user._id
+    };
+  },
   computed: {
-    ...mapState(["online", "ws"]),
-    ...mapGetters(["chats"])
+    chats() {
+      return this.$store.getters.chats(this.user_id);
+    },
+    count() {
+      return this.$store.getters.allUnReadCount(this.user_id);
+    }
   },
   components: {
     BaseFooter,

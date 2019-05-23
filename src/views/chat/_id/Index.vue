@@ -41,15 +41,18 @@ export default {
         contact_id,
         remark,
         messageList,
-        avatar: c_avatar
+        type
       } = this.$store.state.contact.curContact;
       let msg = messageList.map(item => {
         let send = item.from_id === this.user._id;
-        let avatar = send ? this.user.avatar : c_avatar;
+        let avatar = send
+          ? this.user.avatar
+          : this.$store.getters.avatar(item.from_id);
         return { send, avatar, ...item };
       });
       return {
         _id: contact_id,
+        type,
         msg,
         remark
       };
@@ -59,6 +62,14 @@ export default {
     BaseHeader,
     ChatFooter,
     TextMsgBox
+  },
+  beforeRouteLeave(to, from, next) {
+    if (this.contact.type === "group") {
+      this.$store.commit("READ_GROUP_MESSAGE", this.contact._id);
+    } else {
+      this.$store.dispatch("readMessage", this.contact._id);
+    }
+    next();
   }
 };
 </script>
