@@ -2,7 +2,6 @@
   <div id="panel" @click="() => this.$emit('menuClick')">
     <slot name="name"></slot>
     <div class="right">
-      <!--<i class="el-icon-arrow-right"></i>-->
       <slot name="info"></slot>
     </div>
   </div>

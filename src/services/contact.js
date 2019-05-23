@@ -7,3 +7,7 @@ export function addContact(params) {
 export function _setRemark(params) {
   return request("put", "/contact/remark", params);
 }
+
+export function _addContactConfig(params) {
+  return request("patch", "/contact/config", params);
+}

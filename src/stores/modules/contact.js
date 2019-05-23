@@ -1,4 +1,4 @@
-import { _setRemark } from "@/services/contact";
+import { _setRemark, _addContactConfig } from "@/services/contact";
 import { _sendMessage } from "@/services/message";
 
 const SET_LIST = "SET_LIST";
@@ -7,9 +7,11 @@ const SEND_MESSAGE = "SEND_MESSAGE";
 const GET_MESSAGE = "GET_MESSAGE";
 const SET_CUR_CONTACT = "SET_CUR_CONTACT";
 const SET_REMARK = "SET_REMARK";
+const CONFIG_FRIEND = "ADD_FRIEND";
 
 const state = {
-  contactList: []
+  contactList: [],
+  curContact: ""
 };
 
 function last(arr) {
@@ -27,8 +29,7 @@ const mutations = {
     state.contactList = val;
   },
   [ADD_CONTACT](state, contact) {
-    console.log("addcontact", contact);
-    // state.contactList.push(contact);
+    state.contactList.push(contact);
   },
   [SET_CUR_CONTACT](state, val) {
     typeof val === "object" && (state.curContact = val);
@@ -53,15 +54,17 @@ const mutations = {
         (c.remark = val.remark) &&
         (c.alpha = val.alpha);
     });
+  },
+  [CONFIG_FRIEND](state, { id, config }) {
+    state.contactList.some(c => {
+      c.contact_id === id && (c.config = config);
+    });
   }
 };
 
 const actions = {
   setList({ commit }, val) {
     commit(SET_LIST, val);
-  },
-  addContact({ commit }, val) {
-    commit(ADD_CONTACT, val);
   },
   setCurContact({ commit }, val) {
     commit(SET_CUR_CONTACT, val);
@@ -73,15 +76,19 @@ const actions = {
   async sendMessage({ commit }, msg) {
     let { data } = await _sendMessage(msg);
     commit(SEND_MESSAGE, data);
+  },
+  async configFriend({ commit }, data) {
+    let res = await _addContactConfig(data);
+    if (res) {
+      commit(CONFIG_FRIEND, data);
+    }
   }
 };
 
 const getters = {
-  getContacts(state) {
+  contacts(state) {
     let contacts = state.contactList
-      .filter(
-        ({ contactType, config }) => contactType === "friend" && config === 1
-      )
+      .filter(({ config }) => config === 1)
       .sort((a, b) => (a["alpha"] < b["alpha"] ? -1 : 1))
       .reduce((pre, cur) => {
         let alpha = cur.alpha[0];
@@ -94,8 +101,7 @@ const getters = {
   chats(state) {
     return state.contactList
       .filter(
-        ({ contactType, config, messageList }) =>
-          contactType === "friend" && config === 1 && messageList.length > 0
+        ({ config, messageList }) => config === 1 && messageList.length > 0
       )
       .sort((a, b) => last(a.messageList)["time"] < last(b.messageList)["time"])
       .map(({ avatar, remark, _id, messageList }) => ({
@@ -105,6 +111,11 @@ const getters = {
         msg: last(messageList),
         time: last(messageList).time
       }));
+  },
+  newfriends(state) {
+    return state.contactList.filter(
+      ({ addFrom, contact_id }) => addFrom === contact_id
+    );
   }
 };
 

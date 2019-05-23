@@ -21,7 +21,7 @@ export default {
   },
   computed: {
     contacts() {
-      return this.$store.getters["getContacts"];
+      return this.$store.getters["contacts"];
     }
   },
   methods: {

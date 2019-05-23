@@ -6,16 +6,22 @@ export default [
     name: "chatId"
   },
   {
+    path: "/contact",
+    component: () => import("v/contact/Index"),
+    meta: {},
+    name: "contact"
+  },
+  {
     path: "/contact/add",
     component: () => import("v/contact/Add"),
     meta: {},
     name: "contactAdd"
   },
   {
-    path: "/contact",
-    component: () => import("v/contact/Index"),
+    path: "/contact/friend",
+    component: () => import("v/contact/Friend"),
     meta: {},
-    name: "contact"
+    name: "contactFriend"
   },
   {
     path: "/contact/search",

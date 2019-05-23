@@ -14,7 +14,7 @@ module.exports = {
       .set("css", resolve("src/assets/css"))
       .set("img", resolve("src/assets/img"))
       .set("util", resolve("src/utils"))
-      .set("services", resolve("src/services"))
+      .set("service", resolve("src/services"))
       .set("config", resolve("src/configs"))
       .set("filter", resolve("src/filters"));
   },

@@ -25,6 +25,7 @@
 <script>
 import { login } from "@/services/user";
 import BaseHeader from "c/app/BaseHeader";
+import Cookies from "universal-cookie";
 
 export default {
   name: "Login",
@@ -39,7 +40,6 @@ export default {
   components: { BaseHeader },
   methods: {
     async submit() {
-      // this.$store.dispatch("socket/close");
       try {
         let res = await login(this.form);
         this.$store.dispatch("setUser", res.user);
@@ -52,6 +52,9 @@ export default {
     }
   },
   mounted() {
+    const cookies = new Cookies();
+    cookies.remove("wechat");
+    cookies.remove("wechat.sig");
     this.$store.dispatch("close");
   }
 };

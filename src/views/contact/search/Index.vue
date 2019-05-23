@@ -58,7 +58,6 @@ export default {
       code === 0 && (this.user = user);
     },
     addFriend() {
-      console.log("add");
       this.$router.push({
         name: "contactSearchVerify",
         params: {

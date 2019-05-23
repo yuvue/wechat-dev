@@ -1,73 +1,49 @@
-/**
- * @author Sharp
- * @date 2019-05-18
- * @Description: 登录用户的Vuex
- */
 import { Message } from "element-ui";
-import io from "socket.io-client";
 
-const socketURL = "ws://127.0.0.1:3000";
-
-let ws = null;
-
-const CONNECT = "CONNECT";
-const DISCONNECT = "DISCONNECT";
-
-/**
- * 用户信息
- *
- * @type {object}
- */
 const state = {
-  connected: false
+  ws: ""
 };
 
 const mutations = {
-  [CONNECT](state) {
-    state.connected = true;
-  },
-  [DISCONNECT](state) {
-    state.connected = true;
+  wssendMessage(state, message) {
+    console.log(message);
+    state["ws"].send(JSON.stringify(message));
   }
 };
 
 const actions = {
-  connect({ commit, state }) {
-    if (ws && ws.connected) {
-      console.log("connec");
-      ws.close();
-    }
-    if (ws) {
-      console.log("ws", ws);
-    }
-    ws = io(socketURL);
-    ws.on("connect", () => {
-      commit(CONNECT);
-    });
-    ws.on(`error`, data => {
-      Message.error(data.msg);
-    });
-    ws.on(`news`, data => {
-      data.msg && Message.info(data.msg);
-      console.log(data);
-      data.type && commit(data.type, data.data);
-    });
-    ws.on("disconnect", () => {
-      Message.warning("失去socket连接");
-      commit(DISCONNECT);
-    });
+  connect({ state, commit, rootGetters }) {
+    let id = rootGetters.user._id;
+    if (!id) return;
+    let ws = new WebSocket(`ws://127.0.0.1:3000/wechat?id=${id}`);
+    ws.onmessage = ({ data: buffer }) => {
+      console.log(buffer);
+      console.log(typeof buffer);
+      let { data, msg, type } = JSON.parse(buffer);
+      msg && Message.info(msg);
+      type && data && commit(type, data);
+    };
+    ws.onclose = () => Message.warning("您已掉线");
+    state.ws = ws;
   },
   close({ state }) {
-    ws && ws.close();
-    ws = null;
-    state.connected = false;
+    if (state.ws !== null) {
+      state.ws.close();
+    }
+  }
+};
+
+const getters = {
+  getsocket(state) {
+    return state.ws;
   }
 };
 
 const socket = {
   state,
   mutations,
-  actions
+  actions,
+  getters
 };
 
 export default socket;

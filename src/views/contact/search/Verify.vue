@@ -34,8 +34,10 @@ export default {
       let id = this.$route.params.id;
       let verifyText = this.verifyText;
       let { user } = await addContact({ id, verifyText });
-      user && this.$router.push("/contact");
-      // this.$store.dispatch('socket/send', { msg: this.verifyText })
+      if (user) {
+        this.$store.commit("ADD_CONTACT", user);
+        this.$router.push("/contact");
+      }
     }
   }
 };
