@@ -116,6 +116,9 @@ const getters = {
     return state.contactList.filter(
       ({ addFrom, contact_id }) => addFrom === contact_id
     );
+  },
+  groups(state) {
+    return state.contactList.filter(({ type }) => type === "group");
   }
 };
 

@@ -5,6 +5,11 @@
       name="新的朋友"
       @itemClick="itemClick('/contact/friend')"
     ></ContactItem>
+    <ContactItem
+      avatar="/img/icons/contact_top-addgroup.png"
+      name="群聊"
+      @itemClick="itemClick('/group')"
+    ></ContactItem>
   </div>
 </template>
 

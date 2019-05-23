@@ -90,6 +90,17 @@ export default [
     name: "register"
   },
   {
+    path: "/group",
+    component: () => import("v/group/Index"),
+    meta: {},
+    name: "group"
+  },
+  {
+    path: "/group/add",
+    component: () => import("v/group/Add"),
+    name: "groupAdd"
+  },
+  {
     path: "/error",
     component: () => import("v/Error"),
     meta: {},

@@ -1,7 +1,12 @@
 <template>
   <div class="item" @click="() => this.$emit('itemClick')">
-    <img :src="avatar" alt="#" class="avatar" />
-    <p class="name">{{ name }}</p>
+    <section>
+      <img :src="avatar" alt="#" class="avatar" />
+      <p class="name">{{ name }}</p>
+    </section>
+    <section>
+      <slot name="right"></slot>
+    </section>
   </div>
 </template>
 
@@ -19,6 +24,10 @@ export default {
   padding: 10px 15px;
   background-color: #fff;
   margin-bottom: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.6rem;
 }
 
 .avatar {
@@ -26,17 +35,14 @@ export default {
   width: 35px;
   border-radius: 4px;
   vertical-align: middle;
-  float: left;
 }
 
 .name {
-  width: calc(100% - 40px);
   height: 35px;
   line-height: 35px;
   vertical-align: middle;
-  padding-left: 46px;
-  position: relative;
+  display: inline-block;
+  padding-left: 14px;
   color: #000;
-  font-size: 1.6em;
 }
 </style>
