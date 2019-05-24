@@ -79,9 +79,15 @@ export default [
   },
   {
     path: "/moment",
-    component: () => import("v/Moment"),
+    component: () => import("v/moment/Index"),
     meta: {},
     name: "moment"
+  },
+  {
+    path: "/moment/add",
+    component: () => import("v/moment/Add"),
+    meta: {},
+    name: "momentAdd"
   },
   {
     path: "/register",
@@ -106,5 +112,10 @@ export default [
     meta: {},
     name: "error",
     alias: "*"
+  },
+  {
+    path: "/detail",
+    component: () => import("v/detail/_id"),
+    name: "detail"
   }
 ];

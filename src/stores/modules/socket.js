@@ -4,6 +4,11 @@ const state = {
   ws: ""
 };
 
+const baseURL =
+  process.env.NODE_ENV === "production"
+    ? `ws://47.96.72.48:3000`
+    : `ws://127.0.0.1:3000`;
+
 const mutations = {
   wssendMessage(state, message) {
     console.log(message);
@@ -15,7 +20,8 @@ const actions = {
   connect({ state, commit, rootGetters }) {
     let id = rootGetters.user._id;
     if (!id) return;
-    let ws = new WebSocket(`ws://127.0.0.1:3000/wechat?id=${id}`);
+    let URL = baseURL + `/wechat?id=${id}`;
+    let ws = new WebSocket(URL);
     ws.onmessage = ({ data: buffer }) => {
       console.log(buffer);
       console.log(typeof buffer);
