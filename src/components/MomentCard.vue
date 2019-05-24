@@ -9,61 +9,66 @@
         <p class="time">{{ moment.add_time | _time }}</p>
       </section>
     </header>
-
-    <main>
-      <div class="card-image">
-        <img :src="img" v-for="img in moment.img" />
+    <div class="card-image">
+      <img :src="img" v-for="(img, i) in moment.img" :key="i" />
+    </div>
+    <section>
+      <div class="card-text">
+        {{ moment.text }}
       </div>
-      <section>
-        <!---->
-        <div class="card-text">
-          {{ moment.text }}
+      <div class="card-voice">
+        <AmrPlayer :audio="moment.audio"></AmrPlayer>
+      </div>
+      <div class="card-config">
+        <p>
+          <i
+            class="icon"
+            :class="isCollected ? 'icon-star' : 'icon-wujiaoxingkong'"
+            @click="collect"
+          ></i>
+        </p>
+        <p>
+          <i class="icon icon-aixin1"></i><span> {{ moment.likes }}</span>
+        </p>
+        <p @click="showComment">
+          <i class="icon icon-pinglun"></i
+          ><span v-if="moment.comments"> {{ moment.comments.length }}</span>
+        </p>
+      </div>
+      <div class="card-comment" v-show="isComment">
+        <el-divider></el-divider>
+        <div>
+          <CommentBox
+            v-for="comment in moment.comments"
+            :comment="comment"
+            :key="comment._id"
+          ></CommentBox>
         </div>
-        <div class="card-config">
-          <p>
-            <i class="icon icon-wujiaoxingkong"></i>
-          </p>
-          <p>
-            <i class="icon icon-aixin1"></i><span> {{ moment.likes }}</span>
-          </p>
-          <p @click="showComment">
-            <i class="icon icon-pinglun"></i
-            ><span v-if="moment.comments"> {{ moment.comments.length }}</span>
-          </p>
+        <div class="comment-write">
+          <el-input
+            type="text"
+            placeholder="请输入评论"
+            v-model="text"
+          /><el-button size="small" type="primary" @click="comment">
+            发送
+          </el-button>
         </div>
-        <div class="card-comment" v-show="isComment">
-          <el-divider></el-divider>
-          <div>
-            <CommentBox
-              v-for="comment in moment.comments"
-              :comment="comment"
-              :key="comment._id"
-            ></CommentBox>
-          </div>
-          <div class="comment-write">
-            <el-input
-              type="text"
-              placeholder="请输入评论"
-              v-model="text"
-            /><el-button size="small" type="primary" @click="comment">
-              发送
-            </el-button>
-          </div>
-        </div>
-      </section>
-    </main>
+      </div>
+    </section>
   </div>
 </template>
 
 <script>
 import CommentBox from "./CommentBox";
 import _time from "filter/time";
+import AmrPlayer from "c/AmrPlayer";
 
 export default {
   name: "Card",
   props: ["moment"],
   components: {
-    CommentBox
+    CommentBox,
+    AmrPlayer
   },
   data() {
     return {
@@ -79,6 +84,9 @@ export default {
       let remark = this.$store.getters.contactIdRemarkMap.get(id) || "";
       if (remark) return remark;
       return this.moment.nickname || "某个很帅的人";
+    },
+    isCollected() {
+      return this.moment.collects.includes(this.user_id);
     }
   },
   methods: {
@@ -93,6 +101,12 @@ export default {
         text: this.text
       });
       this.text = "";
+    },
+    collect() {
+      this.$store.dispatch("collectMoment", {
+        id: this.moment._id,
+        config: this.isCollected ? -1 : 1
+      });
     }
   },
   filters: {
@@ -186,7 +200,7 @@ header {
     float: right;
   }
 }
-.el-input {
+.card-comment .el-input {
   width: 70%;
   height: 36px;
   padding: 3px 6px;
@@ -196,12 +210,18 @@ header {
     height: 100%;
   }
 }
-.el-button {
+.card-comment .el-button {
   position: absolute;
   right: 0;
   top: 2px;
   font-size: 1rem;
   vertical-align: center;
   padding: 8px 15px;
+}
+.card-voice {
+  margin: 14px 0 24px;
+}
+.icon-star {
+  color: red;
 }
 </style>

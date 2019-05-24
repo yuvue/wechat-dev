@@ -48,6 +48,7 @@ export default {
   height: 70px;
   width: 100%;
   padding: 11px 15px;
+  margin-bottom: 1px;
   position: relative;
   background-color: #fff;
 }

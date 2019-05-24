@@ -29,7 +29,7 @@ export default {
 }
 
 .avatar {
-  margin-left: 20px;
+  margin: 0 20px;
 
   img {
     height: 60px;

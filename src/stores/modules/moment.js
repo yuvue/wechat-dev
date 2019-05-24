@@ -4,8 +4,9 @@ const ADD_LIST = "ADD_LIST";
 const ADD_SELF_LIST = "ADD_SELF_LIST";
 const ADD_ALL_LIST = "ADD_ALL_LIST";
 const ADD_COMMENT = "ADD_COMMENT";
+const COLLECT_MOMENT = "COLLECT_MOMENT";
 
-import { _postComent } from "service/moment";
+import { _collectMoment, _postComent } from "service/moment";
 
 const state = {
   allList: [
@@ -56,6 +57,15 @@ const mutations = {
     state.friendList.some(moment => {
       moment._id === id && moment.comments.push(comment);
     });
+  },
+  [COLLECT_MOMENT](state, { id, config, user_id }) {
+    state.allList.some(moment => {
+      if (moment._id === id) {
+        let collects = moment.collects;
+        config === -1 && collects.splice(collects.indexOf(user_id), 1);
+        config === 1 && collects.push(user_id);
+      }
+    });
   }
 };
 
@@ -71,6 +81,11 @@ const actions = {
     if (data) {
       commit(ADD_COMMENT, { id: comment.id, comment: { ...data, avatar } });
     }
+  },
+  async collectMoment({ commit, rootState }, data) {
+    let res = await _collectMoment(data);
+    let user_id = rootState.user.user._id;
+    if (res) commit(COLLECT_MOMENT, { ...data, user_id });
   }
 };
 

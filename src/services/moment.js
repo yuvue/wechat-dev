@@ -7,3 +7,7 @@ export function _addMoment(params) {
 export function _postComent(params) {
   return request("post", "/moment/comment", params);
 }
+
+export function _collectMoment(params) {
+  return request("post", "/moment/collect", params);
+}
