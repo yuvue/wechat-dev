@@ -28,7 +28,12 @@
           ></i>
         </p>
         <p>
-          <i class="icon icon-aixin1"></i><span> {{ moment.likes }}</span>
+          <i
+            class="icon "
+            :class="isLiked ? 'icon-aixin1' : 'icon-aixin'"
+            @click="like"
+          ></i
+          ><span> {{ moment.likes }}</span>
         </p>
         <p @click="showComment">
           <i class="icon icon-pinglun"></i
@@ -74,7 +79,8 @@ export default {
     return {
       isComment: false,
       text: "",
-      user_id: this.$store.getters.user._id
+      user_id: this.$store.getters.user._id,
+      isLiked: false
     };
   },
   computed: {
@@ -106,6 +112,13 @@ export default {
       this.$store.dispatch("collectMoment", {
         id: this.moment._id,
         config: this.isCollected ? -1 : 1
+      });
+    },
+    like() {
+      this.isLiked = !this.isLiked;
+      this.$store.dispatch("likeMoment", {
+        id: this.moment._id,
+        config: this.isLiked ? 1 : -1
       });
     }
   },
@@ -221,7 +234,8 @@ header {
 .card-voice {
   margin: 14px 0 24px;
 }
-.icon-star {
+.icon-star,
+.icon-aixin1 {
   color: red;
 }
 </style>

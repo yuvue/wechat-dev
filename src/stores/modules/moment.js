@@ -5,8 +5,9 @@ const ADD_SELF_LIST = "ADD_SELF_LIST";
 const ADD_ALL_LIST = "ADD_ALL_LIST";
 const ADD_COMMENT = "ADD_COMMENT";
 const COLLECT_MOMENT = "COLLECT_MOMENT";
+const LIKE_MOMENT = "LIKE_MOMENT";
 
-import { _collectMoment, _postComent } from "service/moment";
+import { _collectMoment, _postComent, _likeMoment } from "service/moment";
 
 const state = {
   allList: [
@@ -66,6 +67,27 @@ const mutations = {
         config === 1 && collects.push(user_id);
       }
     });
+    state.friendList.some(moment => {
+      if (moment._id === id) {
+        let collects = moment.collects;
+        config === -1 && collects.splice(collects.indexOf(user_id), 1);
+        config === 1 && collects.push(user_id);
+      }
+    });
+  },
+  [LIKE_MOMENT](state, { id, config }) {
+    state.allList.some(moment => {
+      if (moment._id === id) {
+        config === -1 && (moment.likes -= 1);
+        config === 1 && (moment.likes += 1);
+      }
+    });
+    state.friendList.some(moment => {
+      if (moment._id === id) {
+        config === -1 && (moment.likes -= 1);
+        config === 1 && (moment.likes += 1);
+      }
+    });
   }
 };
 
@@ -86,6 +108,10 @@ const actions = {
     let res = await _collectMoment(data);
     let user_id = rootState.user.user._id;
     if (res) commit(COLLECT_MOMENT, { ...data, user_id });
+  },
+  async likeMoment({ commit }, data) {
+    let res = await _likeMoment(data);
+    if (res) commit(LIKE_MOMENT, data);
   }
 };
 
