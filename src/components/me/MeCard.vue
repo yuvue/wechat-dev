@@ -58,7 +58,7 @@ export default {
 
 .el-icon-arrow-right {
   position: absolute;
-  right: 10px;
+  right: 30px;
   bottom: 37px;
   font-size: 1.6rem;
 }

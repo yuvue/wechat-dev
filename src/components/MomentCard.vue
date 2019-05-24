@@ -234,6 +234,10 @@ header {
 .card-voice {
   margin: 14px 0 24px;
 }
+.icon {
+  font-size: 2.2rem;
+  vertical-align: middle;
+}
 .icon-star,
 .icon-aixin1 {
   color: red;

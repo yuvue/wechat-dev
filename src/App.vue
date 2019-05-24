@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-    <router-view></router-view>
+  <div id="app-container">
+    <div id="app"><router-view></router-view></div>
   </div>
 </template>
 
@@ -14,8 +14,22 @@ export default {
 </script>
 
 <style lang="less">
+@import "~css/global";
 #app {
   background-color: @bg;
-  min-height: 100vh;
+  height: 100vh;
+}
+
+@media (min-width: 1000px) {
+  #app {
+    width: 54%;
+    .x-ctr;
+  }
+
+  #app-container {
+    width: 100%;
+    background-color: #ccc;
+    height: 100vh;
+  }
 }
 </style>

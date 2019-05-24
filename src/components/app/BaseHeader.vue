@@ -50,13 +50,13 @@ export default {
   top: 0;
 }
 
-@media (min-width: 800px) {
-  .left {
-    left: 30%;
-  }
+/*@media (min-width: 800px) {*/
+/*.left {*/
+/*left: 30%;*/
+/*}*/
 
-  .right {
-    right: 30%;
-  }
-}
+/*.right {*/
+/*right: 30%;*/
+/*}*/
+/*}*/
 </style>
