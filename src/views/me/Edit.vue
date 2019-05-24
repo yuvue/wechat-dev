@@ -52,7 +52,6 @@ export default {
   name: "Edit",
   data() {
     return {
-      fileList: [],
       isEdit: false
     };
   },
@@ -75,7 +74,6 @@ export default {
     },
     async onSubmit() {
       let res = await userEdit(this.user);
-      console.log(this.user);
       if (res.code === 0) {
         this.isEdit = false;
         this.$store.dispatch("setUser", res.user);

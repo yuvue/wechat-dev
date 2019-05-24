@@ -19,10 +19,6 @@
       >
         退出登录
       </div>
-
-      <div style="margin-top: 30px" class="panel t-c" @click="test">
-        连接socket
-      </div>
     </main>
     <BaseFooter></BaseFooter>
   </div>
@@ -45,11 +41,6 @@ export default {
     ...mapState({
       user: state => state.user.user
     })
-  },
-  methods: {
-    test() {
-      this.$store.dispatch("startSocket");
-    }
   }
 };
 </script>

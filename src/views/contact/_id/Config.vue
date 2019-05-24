@@ -7,13 +7,25 @@
     </BaseHeader>
     <main class="main-top main-bottom">
       <MenuPanel
-        name="设置备注"
-        @menuClick="$router.push(`/contact/${contact._id}/remark`)"
-      ></MenuPanel>
+        @menuClick="$router.push(`/contact/${contact.contact_id}/remark`)"
+      >
+        <template slot="name"
+          >设置备注</template
+        >
+        <template slot="info">
+          <i class="el-icon-arrow-right"></i>
+        </template>
+      </MenuPanel>
       <MenuPanel
-        name="把他推荐给朋友"
-        @menuClick="$router.push(`/contact/${contact._id}/remark`)"
-      ></MenuPanel>
+        @menuClick="$router.push(`/contact/${contact.contact_id}/remark`)"
+      >
+        <template slot="name"
+          >把他推荐给朋友</template
+        >
+        <template slot="info">
+          <i class="el-icon-arrow-right"></i>
+        </template>
+      </MenuPanel>
     </main>
   </div>
 </template>
@@ -31,7 +43,7 @@ export default {
   },
   computed: {
     ...mapState({
-      contact: state => state.curContact
+      contact: state => state.contact.curContact
     })
   }
 };

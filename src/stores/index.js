@@ -4,6 +4,7 @@ import createPersistedState from "vuex-persistedstate";
 import user from "./modules/user";
 import contact from "./modules/contact";
 import socket from "./modules/socket";
+import moment from "./modules/moment";
 
 Vue.use(Vuex);
 
@@ -14,7 +15,8 @@ export default new Vuex.Store({
   modules: {
     user,
     contact,
-    socket
+    socket,
+    moment
   },
   plugins: [createPersistedState()]
 });

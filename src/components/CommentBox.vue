@@ -2,7 +2,7 @@
   <div class="box">
     <img :src="comment['avatar']" alt="" />
     <div class="comment">
-      <p class="time">{{ comment["time"] | filterTime }}</p>
+      <p class="time">{{ comment["add_time"] | filterTime }}</p>
       <p class="text">{{ comment["text"] }}</p>
     </div>
   </div>

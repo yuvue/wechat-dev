@@ -160,6 +160,13 @@ const getters = {
       });
     });
     return num;
+  },
+  contactIdRemarkMap(state) {
+    let map = new Map();
+    state.contactList.forEach(c => {
+      map.set(c.contact_id, c.remark);
+    });
+    return map;
   }
 };
 

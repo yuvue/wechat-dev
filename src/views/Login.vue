@@ -44,6 +44,7 @@ export default {
         let res = await login(this.form);
         this.$store.dispatch("setUser", res.user);
         this.$store.dispatch("setList", res.contacts);
+        this.$store.commit("SET_ALL_LIST", res.moments);
         this.$router.push("/");
         this.$store.dispatch("connect");
       } catch (e) {
@@ -55,6 +56,7 @@ export default {
     const cookies = new Cookies();
     cookies.remove("wechat");
     cookies.remove("wechat.sig");
+    localStorage.getItem("vuex") && localStorage.removeItem("vuex");
     this.$store.dispatch("close");
   }
 };

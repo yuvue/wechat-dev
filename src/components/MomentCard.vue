@@ -2,45 +2,52 @@
   <div class="card">
     <header>
       <section>
-        <img src="/img/avatar/chenhuan.jpeg" alt="" />
+        <img :src="moment.avatar" class="avatar" alt="" />
       </section>
       <section class="middle">
-        <p class="sender">我</p>
-        <p class="time">2019/2/20</p>
+        <p class="sender">{{ name }}</p>
+        <p class="time">{{ moment.add_time | _time }}</p>
       </section>
     </header>
 
     <main>
+      <div class="card-image">
+        <img :src="img" v-for="img in moment.img" />
+      </div>
       <section>
-        <div class="card-image">
-          <img src="/img/avatar/chenhuan.jpeg" />
-        </div>
-      </section>
-      <section class="card-part-2">
         <!---->
         <div class="card-text">
-          这是周佳俊发的一篇测试发现模块的socket功能的说说
+          {{ moment.text }}
         </div>
         <div class="card-config">
           <p>
             <i class="icon icon-wujiaoxingkong"></i>
           </p>
-          <p><i class="icon icon-aixin1"></i><span> 2</span></p>
+          <p>
+            <i class="icon icon-aixin1"></i><span> {{ moment.likes }}</span>
+          </p>
           <p @click="showComment">
-            <i class="icon icon-pinglun"></i><span> 4</span>
+            <i class="icon icon-pinglun"></i
+            ><span v-if="moment.comments"> {{ moment.comments.length }}</span>
           </p>
         </div>
         <div class="card-comment" v-show="isComment">
           <el-divider></el-divider>
           <div>
-            <CommentBox :comment="comment"></CommentBox>
+            <CommentBox
+              v-for="comment in moment.comments"
+              :comment="comment"
+              :key="comment._id"
+            ></CommentBox>
           </div>
           <div class="comment-write">
-            <input type="text" placeholder="请输入评论" /><button
-              class="btn-send"
-            >
+            <el-input
+              type="text"
+              placeholder="请输入评论"
+              v-model="text"
+            /><el-button size="small" type="primary" @click="comment">
               发送
-            </button>
+            </el-button>
           </div>
         </div>
       </section>
@@ -50,31 +57,52 @@
 
 <script>
 import CommentBox from "./CommentBox";
+import _time from "filter/time";
+
 export default {
   name: "Card",
-  data() {
-    return {
-      comment: {
-        avatar: "/img/avatar/chenhuan.jpeg",
-        time: Date.now(),
-        text: "对的"
-      },
-      isComment: false
-    };
-  },
+  props: ["moment"],
   components: {
     CommentBox
+  },
+  data() {
+    return {
+      isComment: false,
+      text: "",
+      user_id: this.$store.getters.user._id
+    };
+  },
+  computed: {
+    name() {
+      let id = this.moment.user_id;
+      if (id === this.user_id) return "我";
+      let remark = this.$store.getters.contactIdRemarkMap.get(id) || "";
+      if (remark) return remark;
+      return this.moment.nickname || "某个很帅的人";
+    }
   },
   methods: {
     showComment() {
       this.isComment = !this.isComment;
+    },
+    comment() {
+      let id = this.moment._id;
+      this.$store.dispatch("addComment", {
+        id,
+        user_id: this.user_id,
+        text: this.text
+      });
+      this.text = "";
     }
+  },
+  filters: {
+    _time
   }
 };
 </script>
 
-<style scoped lang="less">
-img {
+<style lang="less">
+.avatar {
   width: 40px;
   height: 40px;
   border-radius: 3px;
@@ -113,11 +141,8 @@ header {
   }
 }
 
-main {
-  padding-left: 50px;
-}
-
 .card-image {
+  margin: 14px 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
@@ -127,6 +152,7 @@ main {
     height: 80px;
     margin-right: 10px;
     margin-bottom: 10px;
+    border-radius: 4px;
   }
 }
 
@@ -148,18 +174,9 @@ main {
 }
 
 .comment-write {
-  height: 24px;
-  line-height: 24px;
   width: 100%;
   margin-top: 20px;
-
-  input {
-    width: 70%;
-    height: 100%;
-    border: 1px solid #999;
-    border-radius: 2px;
-    padding: 3px 6px;
-  }
+  position: relative;
 
   .btn-send {
     border: 1px solid #4d4d4d;
@@ -168,5 +185,23 @@ main {
     background-color: #5dc261;
     float: right;
   }
+}
+.el-input {
+  width: 70%;
+  height: 36px;
+  padding: 3px 6px;
+  vertical-align: center;
+
+  .el-input__inner {
+    height: 100%;
+  }
+}
+.el-button {
+  position: absolute;
+  right: 0;
+  top: 2px;
+  font-size: 1rem;
+  vertical-align: center;
+  padding: 8px 15px;
 }
 </style>

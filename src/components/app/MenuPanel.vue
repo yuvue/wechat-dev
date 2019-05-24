@@ -9,8 +9,7 @@
 
 <script>
 export default {
-  name: "MenuPanel",
-  props: ["name"]
+  name: "MenuPanel"
 };
 </script>
 
