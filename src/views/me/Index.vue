@@ -12,11 +12,23 @@
           <i class="el-icon-arrow-right"></i>
         </template>
       </MeCard>
-      <div
-        style="margin-top: 30px"
-        class="panel t-c"
-        @click="$router.push('/login')"
-      >
+      <MenuPanel @menuClick="$router.push('/moment/friend')" class="mt-20">
+        <template slot="name">
+          <div>朋友圈</div>
+        </template>
+        <template slot="info">
+          <i class="el-icon-arrow-right"></i>
+        </template>
+      </MenuPanel>
+      <MenuPanel @menuClick="$router.push('/moment/collect')">
+        <template slot="name">
+          <div>收藏</div>
+        </template>
+        <template slot="info">
+          <i class="el-icon-arrow-right"></i>
+        </template>
+      </MenuPanel>
+      <div class="panel t-c mt-60" @click="$router.push('/login')">
         退出登录
       </div>
     </main>
@@ -27,6 +39,7 @@
 <script>
 import BaseHeader from "c/app/BaseHeader";
 import BaseFooter from "c/app/BaseFooter";
+import MenuPanel from "c/app/MenuPanel";
 import MeCard from "c/me/MeCard";
 import { mapState } from "vuex";
 
@@ -35,7 +48,8 @@ export default {
   components: {
     MeCard,
     BaseFooter,
-    BaseHeader
+    BaseHeader,
+    MenuPanel
   },
   computed: {
     ...mapState({

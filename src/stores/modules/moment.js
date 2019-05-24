@@ -91,7 +91,11 @@ const mutations = {
   }
 };
 
-const getters = {};
+const getters = {
+  collectMoments: state => user_id => {
+    return state.allList.filter(({ collects }) => collects.includes(user_id));
+  }
+};
 
 const actions = {
   async addComment({ commit, rootState }, comment) {
