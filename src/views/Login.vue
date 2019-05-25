@@ -48,7 +48,7 @@ export default {
         this.$router.push("/");
         this.$store.dispatch("connect");
       } catch (e) {
-        console.log(e);
+        this.$message.error(e);
       }
     }
   },

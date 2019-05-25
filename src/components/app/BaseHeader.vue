@@ -19,6 +19,7 @@ export default {
 
 <style scoped lang="less">
 @import "~css/global.less";
+@import "~animate.css";
 .header {
   position: fixed;
   top: 0;
@@ -49,14 +50,4 @@ export default {
   right: 10px;
   top: 0;
 }
-
-/*@media (min-width: 800px) {*/
-/*.left {*/
-/*left: 30%;*/
-/*}*/
-
-/*.right {*/
-/*right: 30%;*/
-/*}*/
-/*}*/
 </style>

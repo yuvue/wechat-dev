@@ -25,9 +25,7 @@ export default {
   method: {
     click() {}
   },
-  mounted() {
-    console.log();
-  }
+  mounted() {}
 };
 </script>
 

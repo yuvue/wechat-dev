@@ -109,9 +109,7 @@ export default {
       this.inputVisible = false;
       this.inputValue = "";
     },
-    remove(file, fileList) {
-      console.log(file, fileList);
-    },
+    remove(file, fileList) {},
     preview(file) {
       this.dialogImageUrl = file.url;
       this.dialogVisible = true;

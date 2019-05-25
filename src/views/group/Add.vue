@@ -29,7 +29,6 @@ export default {
     async submit() {
       let idList = this.$refs.card.idList;
       let res = await addGroup({ idList });
-      console.log(res);
     }
   }
 };

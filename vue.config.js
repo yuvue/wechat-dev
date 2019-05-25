@@ -1,5 +1,5 @@
 const path = require("path");
-const manifestPlugin = require("pwa-manifest-webpack-plugin");
+const workbox = require("workbox-webpack-plugin");
 
 function resolve(dir) {
   return path.join(__dirname, dir);
@@ -34,9 +34,10 @@ module.exports = {
 
     // configure the workbox plugin
     workboxPluginMode: "InjectManifest",
+    // workboxPluginMode: "GenerateSW",
     workboxOptions: {
       // swSrc is required in InjectManifest mode.
-      swSrc: resolve("src/registerServiceWorker.js")
+      swSrc: resolve("src/sw.js")
       // ...other Workbox options...
     }
   },

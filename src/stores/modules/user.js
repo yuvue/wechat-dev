@@ -50,7 +50,6 @@ const actions = {
     commit(SET_USER, val);
   },
   updateAvatar({ commit, state }, val) {
-    console.log(state);
     commit(UPDATE_AVATAR, val);
     userEdit({ avatar: val, _id: state.info._id });
   }

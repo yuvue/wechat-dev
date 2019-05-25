@@ -98,7 +98,6 @@ const actions = {
     }
   },
   async readMessage({ commit }, from_id) {
-    console.log(from_id);
     let res = await _readMessage({ from_id });
     res && commit(READ_MESSAGE, from_id);
   }

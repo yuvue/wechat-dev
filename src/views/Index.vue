@@ -66,9 +66,6 @@ export default {
   },
   activated() {
     setState(this.$store);
-  },
-  mounted() {
-    console.log(this.chats);
   }
 };
 </script>

@@ -28,7 +28,7 @@ export default {
   methods: {
     inputImage() {
       let fileList = this.$refs.pictures.files;
-      console.log(fileList);
+
       this.pictureList = fileList;
       const readerList = [];
       for (let i = 0; i < fileList.length; i++) {

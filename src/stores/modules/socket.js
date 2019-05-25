@@ -1,7 +1,7 @@
 import { Message } from "element-ui";
 
 const state = {
-  ws: ""
+  ws: null
 };
 
 const baseURL =
@@ -11,7 +11,6 @@ const baseURL =
 
 const mutations = {
   wssendMessage(state, message) {
-    console.log(message);
     state["ws"].send(JSON.stringify(message));
   }
 };
@@ -23,8 +22,6 @@ const actions = {
     let URL = baseURL + `/wechat?id=${id}`;
     let ws = new WebSocket(URL);
     ws.onmessage = ({ data: buffer }) => {
-      console.log(buffer);
-      console.log(typeof buffer);
       let { data, msg, type } = JSON.parse(buffer);
       msg && Message.info(msg);
       type && data && commit(type, data);
@@ -35,6 +32,7 @@ const actions = {
   close({ state }) {
     if (state.ws !== null) {
       state.ws.close();
+      state.ws = null;
     }
   }
 };
