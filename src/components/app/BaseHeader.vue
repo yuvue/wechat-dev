@@ -43,11 +43,13 @@ export default {
   position: absolute;
   left: 10px;
   top: 0;
+  animation: slideInRight 0.6s;
 }
 
 .right {
   position: absolute;
   right: 10px;
   top: 0;
+  animation: slideInLeft 0.6s;
 }
 </style>

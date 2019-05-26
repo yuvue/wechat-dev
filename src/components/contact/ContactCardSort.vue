@@ -1,7 +1,9 @@
 <template>
   <div>
     <div v-for="alpha in Object.keys(contacts)">
-      <div class="letter">{{ alpha }}</div>
+      <div class="letter" :id="`a-${alpha}`">
+        {{ alpha }}
+      </div>
       <div v-for="i in contacts[alpha]">
         <ContactItem
           :avatar="i.avatar"
@@ -14,7 +16,6 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
 import ContactItem from "./ContactItem";
 export default {
   components: {

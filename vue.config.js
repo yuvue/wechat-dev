@@ -31,14 +31,16 @@ module.exports = {
     msTileColor: "#000000",
     appleMobileWebAppCapable: "yes",
     appleMobileWebAppStatusBarStyle: "black",
-
-    // configure the workbox plugin
     workboxPluginMode: "InjectManifest",
-    // workboxPluginMode: "GenerateSW",
     workboxOptions: {
-      // swSrc is required in InjectManifest mode.
-      swSrc: resolve("src/sw.js")
-      // ...other Workbox options...
+      swSrc: resolve("src/service-worker.js")
+    },
+    iconPaths: {
+      favicon32: "img/icons/apple-touch-icon.png",
+      favicon16: "img/icons/apple-touch-icon.png",
+      appleTouchIcon: "img/icons/apple-touch-icon.png",
+      maskIcon: "img/icons/apple-touch-icon.png",
+      msTileImage: "img/icons/apple-touch-icon.png"
     }
   },
   devServer: {

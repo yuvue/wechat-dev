@@ -10,7 +10,7 @@ import ChatFooterText from "./ChatFooterText";
 import ChatFooterVoice from "./ChatFooterVoice";
 
 export default {
-  name: "FooterDialogue",
+  name: "ChatFooter",
   data() {
     return {
       showSpeak: false

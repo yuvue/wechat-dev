@@ -29,6 +29,10 @@ workbox.routing.registerRoute(
   new workbox.strategies.StaleWhileRevalidate()
 );
 workbox.routing.registerRoute(
+  new RegExp(".jpg$"),
+  new workbox.strategies.StaleWhileRevalidate()
+);
+workbox.routing.registerRoute(
   new RegExp(".amr$"),
   new workbox.strategies.StaleWhileRevalidate()
 );

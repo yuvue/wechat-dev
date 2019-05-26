@@ -1,11 +1,12 @@
 <template>
   <div>
+    <Anchor></Anchor>
     <BaseHeader text="通讯录">
       <template slot="right">
         <i class="icon icon-adduser" @click="$router.push('/contact/add')"></i>
       </template>
     </BaseHeader>
-    <main class="main-top main-bottom">
+    <main class="main-top main-bottom" ref="main">
       <ContactCardMenu></ContactCardMenu>
       <ContactCardSort></ContactCardSort>
     </main>
@@ -16,16 +17,18 @@
 <script>
 import ContactCardSort from "c/contact/ContactCardSort";
 import ContactCardMenu from "c/contact/ContactCardMenu";
+import Anchor from "c/contact/Anchor";
 import BaseHeader from "c/app/BaseHeader";
 import BaseFooter from "c/app/BaseFooter";
 
 export default {
-  name: "chat",
+  name: "Contact",
   components: {
     ContactCardMenu,
     ContactCardSort,
     BaseFooter,
-    BaseHeader
+    BaseHeader,
+    Anchor
   }
 };
 </script>

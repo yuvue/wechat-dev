@@ -4,7 +4,8 @@
       <i class="icon icon-jianpan2" @click="$parent.showSpeak = false"></i>
     </section>
     <section>
-      <el-input value="点击 录音"></el-input>
+      <Recorder class="xy-ctr"></Recorder>
+      <!--<el-input value="点击 录音" @click="startRecord"></el-input>-->
     </section>
     <section>
       <el-button type="primary" size="small" @click="() => this.$emit('send')"
@@ -15,15 +16,22 @@
 </template>
 
 <script>
+import Recorder from "../Recorder";
 export default {
   name: "ChatFooterVoice",
+  components: {
+    Recorder
+  },
   data() {
     return {
-      isRecording: false
+      isRecording: false,
+      value: "点击 录音"
     };
   },
   method: {
-    click() {}
+    startRecord() {
+      this.value = "点击 结束";
+    }
   },
   mounted() {}
 };

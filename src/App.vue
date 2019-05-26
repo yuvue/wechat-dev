@@ -9,6 +9,10 @@ export default {
   name: "app",
   mounted() {
     this.$store.dispatch("connect");
+    // setInterval(() => {
+    //   console.log(document.scrollingElement.scrollTop);
+    //   console.dir(document.querySelector("#app > div > main"));
+    // }, 5000);
   }
 };
 </script>
