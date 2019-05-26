@@ -2,7 +2,7 @@
   <div class="msg-flex" :class="msg.send ? 'msg__send' : 'msg__receive'">
     <p class="msg-audio " ref="box" :style="{ width: width }" @click="play">
       <span>{{ msg.audio.sec + "''" }}</span>
-      <i class="icon icon-voice-send"></i>
+      <i class="icon" :class="msg.send? 'icon-voice-send': 'icon-voice-get'"></i>
     </p>
     <img :src="msg.avatar" alt="" />
   </div>
