@@ -12,52 +12,49 @@
 </template>
 
 <script>
-import BenzAMRRecorder from "benz-amr-recorder";
-let amrRec = null;
+import BenzAMRRecorder from 'benz-amr-recorder'
+import AmrPlayer from '@/components/AmrPlayer'
+let amrRec = null
 
 export default {
-  name: "Recorder",
+  name: 'Recorder',
   data() {
     return {
       isRecording: false,
       seconds: 0,
-      audio: null
-    };
+      audio: null,
+    }
   },
   methods: {
-    canvas() {
-      let canvas = document.getElementById("canvas");
-      let ctx = canvas.getContext("2d");
-      ctx.fillStyle = "rgb(200,0,0)";
-      ctx.fillRect(10, 10, 55, 50);
-    },
     startRecord() {
-      amrRec = new BenzAMRRecorder();
+      amrRec = new BenzAMRRecorder()
       amrRec.initWithRecord().then(() => {
-        amrRec.startRecord();
-        this.isRecording = true;
-        amrRec.finishRecord().then(() => {
-          this.audio = amrRec.getBlob();
-        });
+        amrRec.startRecord()
+        this.isRecording = true
+        amrRec.onFinishRecord(() => {
+          this.audio = amrRec.getBlob()
+          console.log(amrRec.getBlob())
+          amrRec = null
+        })
         this.interval = setInterval(() => {
-          this.seconds += 1;
-          let range = this.$refs.range;
-          range.style.width = this.seconds + "px";
+          this.seconds += 1
+          let range = this.$refs.range
+          range.style.width = this.seconds + 'px'
           if (this.seconds > 120) {
-            this.stopRecord();
-            clearInterval(this.interval);
+            this.stopRecord()
+            clearInterval(this.interval)
           }
-        }, 1000);
-      });
+        }, 1000)
+      })
     },
     stopRecord() {
-      this.isRecording = false;
-      amrRec.finishRecord();
-      amrRec = null;
-      clearInterval(this.interval);
-    }
-  }
-};
+      this.isRecording = false
+      amrRec.finishRecord()
+      this.audio = amrRec.getBlob()
+      clearInterval(this.interval)
+    },
+  },
+}
 </script>
 
 <style scoped lang="less">

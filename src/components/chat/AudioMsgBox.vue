@@ -11,7 +11,6 @@
 <script>
 import AmrPlayer from 'benz-amr-recorder'
 let player = null
-let host = 'http://localhost:3000'
 
 export default {
   name: 'AudioMsgBox',
@@ -24,7 +23,7 @@ export default {
   methods: {
     play() {
       player = new AmrPlayer()
-      player.initWithUrl(host + this.msg.audio.src).then(() => {
+      player.initWithUrl(this.msg.audio.src).then(() => {
         player.play()
         player.onEnded(() => {
           player = null
