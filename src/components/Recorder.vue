@@ -13,7 +13,6 @@
 
 <script>
 import BenzAMRRecorder from 'benz-amr-recorder'
-import AmrPlayer from '@/components/AmrPlayer'
 let amrRec = null
 
 export default {

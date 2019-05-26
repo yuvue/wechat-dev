@@ -26,9 +26,9 @@ export default {
   border-radius: 4px;
   background: ;
   margin: 0 10px;
-  line-height: 40px;
+  line-height: 1.6;
+  padding: 10px 14px;
   font-size: 1.6rem;
-  padding: 0 14px;
   border: 1px solid grey;
   position: relative;
 }

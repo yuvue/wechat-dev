@@ -88,6 +88,10 @@ img {
   position: relative;
   font-size: 1.3em;
   color: #888;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 80vw;
 }
 
 .time {

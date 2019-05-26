@@ -5,26 +5,26 @@
 </template>
 
 <script>
+import Cookies from 'universal-cookie'
+
 export default {
-  name: "app",
+  name: 'app',
   mounted() {
-    this.$store.dispatch("connect");
-    // setInterval(() => {
-    //   console.log(document.scrollingElement.scrollTop);
-    //   console.dir(document.querySelector("#app > div > main"));
-    // }, 5000);
-  }
-};
+    const cookies = new Cookies()
+    !cookies.get('wechat') && this.$router.push('/login')
+    this.$store.dispatch('connect')
+  },
+}
 </script>
 
 <style lang="less">
-@import "~css/global";
+@import '~css/global';
 #app {
   background-color: @bg;
   height: 100vh;
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 1100px) {
   #app {
     width: 54%;
     .x-ctr;

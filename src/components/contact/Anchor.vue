@@ -13,40 +13,13 @@
 
 <script>
 export default {
-  name: "Anchor",
-  data() {
-    return {
-      list: [
-        "A",
-        "B",
-        "C",
-        "D",
-        "E",
-        "F",
-        "G",
-        "H",
-        "I",
-        "J",
-        "K",
-        "M",
-        "L",
-        "N",
-        "O",
-        "P",
-        "Q",
-        "R",
-        "S",
-        "T",
-        "U",
-        "V",
-        "W",
-        "X",
-        "Y",
-        "Z"
-      ]
-    };
-  }
-};
+  name: 'Anchor',
+  computed: {
+    list() {
+      return Object.keys(this.$store.getters['contacts'])
+    },
+  },
+}
 </script>
 
 <style>
