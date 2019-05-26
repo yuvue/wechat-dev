@@ -4,13 +4,10 @@
       <i class="icon icon-jianpan2" @click="$parent.showSpeak = false"></i>
     </section>
     <section>
-      <Recorder class="xy-ctr"></Recorder>
-      <!--<el-input value="点击 录音" @click="startRecord"></el-input>-->
+      <Recorder class="xy-ctr" ref="recorder"></Recorder>
     </section>
     <section>
-      <el-button type="primary" size="small" @click="() => this.$emit('send')"
-        >发送</el-button
-      >
+      <el-button type="primary" size="small" @click="submit">发送</el-button>
     </section>
   </div>
 </template>
@@ -22,15 +19,13 @@ export default {
   components: {
     Recorder
   },
-  data() {
-    return {
-      isRecording: false,
-      value: "点击 录音"
-    };
-  },
-  method: {
-    startRecord() {
-      this.value = "点击 结束";
+  methods: {
+    submit() {
+      let { audio, seconds } = this.$refs.recorder;
+      let fd = new FormData();
+      fd.append("audio", audio);
+      fd.append("sec", seconds);
+      this.$emit("send", "audio", fd);
     }
   },
   mounted() {}

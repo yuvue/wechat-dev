@@ -22,11 +22,16 @@ export default {
   },
   methods: {
     click() {
+      if (this.text === "")
+        return this.$notify.warning({
+          message: "发送内容不能为空",
+          duration: 0
+        });
       let data = {
         type: "text",
         text: this.text
       };
-      this.$emit("send", data);
+      this.$emit("send", "text", data);
       this.text = "";
     }
   }

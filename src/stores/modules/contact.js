@@ -1,5 +1,5 @@
 import { _setRemark, _addContactConfig } from "@/services/contact";
-import { _sendMessage, _readMessage } from "@/services/message";
+import { _readMessage } from "@/services/message";
 
 const SET_LIST = "SET_LIST";
 const ADD_CONTACT = "ADD_CONTACT";
@@ -87,10 +87,10 @@ const actions = {
     let { data } = await _setRemark(val);
     data && commit(SET_REMARK, data);
   },
-  async sendMessage({ commit }, msg) {
-    let { data } = await _sendMessage(msg);
-    commit(SEND_MESSAGE, data);
-  },
+  // async sendMessage({ commit }, msg) {
+  //   let { data } = await _sendMessage(msg);
+  //   commit(SEND_MESSAGE, data);
+  // },
   async configFriend({ commit }, data) {
     let res = await _addContactConfig(data);
     if (res) {

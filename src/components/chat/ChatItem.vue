@@ -17,33 +17,30 @@
 </template>
 
 <script>
-import _time from "@/utils/filterTime";
+import _time from '@/utils/filterTime'
 
 export default {
-  name: "ChatItem",
-  props: ["contact"],
+  name: 'ChatItem',
+  props: ['contact'],
   methods: {
     itemClick() {
-      let id = this.contact._id;
-      this.$router.push(`/chat/${id}`);
-      this.$store.dispatch("setCurContact", id);
-    }
+      let id = this.contact._id
+      this.$router.push(`/chat/${id}`)
+      this.$store.dispatch('setCurContact', id)
+    },
   },
   filters: {
     _msg(msg) {
-      if (msg.type === "audio") return `[语音] ${msg.length}s`;
-      else return msg.text;
+      if (msg.type === 'audio') return `[语音] ${msg.audio.sec}s`
+      else return msg.text
     },
-    _time
+    _time,
   },
-  mounted() {
-    //
-  }
-};
+}
 </script>
 
 <style scoped lang="less">
-@import "~css/colors.less";
+@import '~css/colors.less';
 .item {
   height: 70px;
   width: 100%;

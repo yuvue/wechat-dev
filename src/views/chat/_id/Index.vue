@@ -2,7 +2,7 @@
   <div>
     <BaseHeader :text="contact.remark">
       <template slot="left">
-        <i class="el-icon-arrow-left" @click="$router.back()"></i>
+        <i class="el-icon-arrow-left" @click="$router.push('/')"></i>
       </template>
       <template slot="right">
         <i
@@ -12,11 +12,10 @@
       </template>
     </BaseHeader>
     <main class="main-top main-bottom">
-      <TextMsgBox
-        v-for="msg in contact.msg"
-        :msg="msg"
-        :key="msg._id"
-      ></TextMsgBox>
+      <div v-for="msg in contact.msg" :key="msg._id">
+        <TextMsgBox :msg="msg" v-if="msg.type === 'text'"></TextMsgBox>
+        <AudioMsgBox :msg="msg" v-if="msg.type === 'audio'"></AudioMsgBox>
+      </div>
     </main>
     <ChatFooter></ChatFooter>
   </div>
@@ -27,6 +26,7 @@ import { mapState } from "vuex";
 import BaseHeader from "c/app/BaseHeader";
 import ChatFooter from "c/chat/ChatFooter";
 import TextMsgBox from "c/chat/TextMsgBox";
+import AudioMsgBox from "c/chat/AudioMsgBox";
 
 export default {
   name: "ChatDetail",
@@ -34,6 +34,12 @@ export default {
     return {
       user: this.$store.getters["user"]
     };
+  },
+  components: {
+    BaseHeader,
+    ChatFooter,
+    TextMsgBox,
+    AudioMsgBox
   },
   computed: {
     contact() {
@@ -57,11 +63,6 @@ export default {
         remark
       };
     }
-  },
-  components: {
-    BaseHeader,
-    ChatFooter,
-    TextMsgBox
   },
   beforeRouteLeave(to, from, next) {
     if (this.contact.type === "group") {

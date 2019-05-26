@@ -6,13 +6,10 @@
       </template>
     </BaseHeader>
     <main class="main-top main-bottom">
-      <el-row class="mt-20">
-        <el-col :span="18"><el-input v-model="email"></el-input></el-col>
-        <el-col :span="6" class="t-r"
-          ><el-button type="primary" @click="search">搜索</el-button></el-col
-        >
-      </el-row>
-
+      <section class="search">
+        <el-input v-model="email"></el-input>
+        <el-button type="primary" @click="search">搜索</el-button>
+      </section>
       <section v-show="user.email">
         <MeCard
           :nickname="user.nickname"
@@ -70,10 +67,15 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.el-row {
-  max-width: 700px;
+.search {
+  display: flex;
+  justify-items: center;
+
+  .el-input {
+    flex-grow: 1;
+  }
 }
-main > section {
+main > section:not(:first-child) {
   margin: 10px 0;
 }
 </style>

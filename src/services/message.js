@@ -1,7 +1,11 @@
 import request from "@/utils/request";
 
-export function _sendMessage(params) {
-  return request("put", "/message", params);
+export function _sendTextMessage(params) {
+  return request("put", "/message/text", params);
+}
+
+export function _sendAudioMessage(params) {
+  return request("put", "/message/audio", params);
 }
 
 export function _readMessage(params) {

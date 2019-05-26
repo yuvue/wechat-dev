@@ -3,7 +3,10 @@
     <Anchor></Anchor>
     <BaseHeader text="通讯录">
       <template slot="right">
-        <i class="icon icon-adduser" @click="$router.push('/contact/add')"></i>
+        <i
+          class="icon icon-adduser"
+          @click="$router.push('/contact/search')"
+        ></i>
       </template>
     </BaseHeader>
     <main class="main-top main-bottom" ref="main">
