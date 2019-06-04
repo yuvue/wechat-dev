@@ -39,21 +39,22 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import { userEdit } from "@/services/user";
-import MeHeader from "c/me/MeHeader";
-import AddressBar from "c/me/bars//AddressBar";
-import AvatarBar from "c/me/bars//AvatarBar";
-import NameBar from "c/me/bars//NameBar";
-import SignatureBar from "c/me/bars//SignatureBar";
-import WechatNumberBar from "c/me/bars//WechatNumberBar";
+import { mapState } from 'vuex'
+import { userEdit } from '@/services/user'
+import MeHeader from 'c/me/MeHeader'
+import AddressBar from 'c/me/bars//AddressBar'
+import AvatarBar from 'c/me/bars//AvatarBar'
+import NameBar from 'c/me/bars//NameBar'
+import SignatureBar from 'c/me/bars//SignatureBar'
+import WechatNumberBar from 'c/me/bars//WechatNumberBar'
 
 export default {
-  name: "Edit",
+  name: 'Edit',
   data() {
     return {
-      isEdit: false
-    };
+      isEdit: false,
+      user: this.$store.getters.user,
+    }
   },
   components: {
     MeHeader,
@@ -61,34 +62,29 @@ export default {
     AvatarBar,
     NameBar,
     SignatureBar,
-    WechatNumberBar
-  },
-  computed: {
-    ...mapState({
-      user: state => state.user.user
-    })
+    WechatNumberBar,
   },
   methods: {
     changeEditState() {
-      this.isEdit = !this.isEdit;
+      this.isEdit = !this.isEdit
     },
     async onSubmit() {
-      let res = await userEdit(this.user);
+      let res = await userEdit(this.user)
       if (res.code === 0) {
-        this.isEdit = false;
-        this.$store.dispatch("setUser", res.user);
+        this.isEdit = false
+        this.$store.dispatch('setUser', res.user)
       }
     },
     editUser(key, value) {
-      this.user[key] = value;
-    }
-  }
-};
+      this.user[key] = value
+    },
+  },
+}
 </script>
 
 <style lang="less" scoped>
-@import "~css/global.less";
-input[type="file"] {
+@import '~css/global.less';
+input[type='file'] {
   width: 86px;
   height: 30px;
   position: absolute;

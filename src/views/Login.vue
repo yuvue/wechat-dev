@@ -1,5 +1,5 @@
 <template>
-  <div id="login">
+  <div id="login" class="h-100">
     <BaseHeader text="登录"> </BaseHeader>
     <main class="main-top">
       <div class="form x-ctr">
@@ -23,46 +23,47 @@
 </template>
 
 <script>
-import { login } from "@/services/user";
-import BaseHeader from "c/app/BaseHeader";
-import Cookies from "universal-cookie";
+import { login } from '@/services/user'
+import BaseHeader from 'c/app/BaseHeader'
+import Cookies from 'universal-cookie'
 
 export default {
-  name: "Login",
+  name: 'Login',
   data() {
     return {
       form: {
-        username: "",
-        password: ""
-      }
-    };
+        username: '',
+        password: '',
+      },
+    }
   },
   components: { BaseHeader },
   methods: {
     async submit() {
       try {
-        let res = await login(this.form);
-        this.$store.dispatch("setUser", res.user);
-        this.$store.dispatch("setList", res.contacts);
-        this.$store.commit("SET_ALL_LIST", res.moments);
-        this.$router.push("/");
-        this.$store.dispatch("connect");
+        let res = await login(this.form)
+        console.log(res)
+        this.$store.dispatch('setUser', res.user)
+        this.$store.dispatch('setList', res.contacts)
+        this.$store.commit('SET_ALL_LIST', res.moments)
+        this.$router.push('/')
+        this.$store.dispatch('connect')
       } catch (e) {
-        this.$message.error(e);
+        this.$message.error(e)
       }
-    }
+    },
   },
   mounted() {
-    const cookies = new Cookies();
-    cookies.remove("wechat");
-    cookies.remove("wechat.sig");
-    localStorage.getItem("vuex") && localStorage.removeItem("vuex");
-    this.$store.dispatch("close");
-  }
-};
+    const cookies = new Cookies()
+    cookies.remove('wechat')
+    cookies.remove('wechat.sig')
+    localStorage.getItem('vuex') && localStorage.removeItem('vuex')
+    this.$store.dispatch('close')
+  },
+}
 </script>
 
-<style>
+<style scoped>
 #login {
   width: 100vw;
   height: 100vh;

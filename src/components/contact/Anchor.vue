@@ -30,6 +30,7 @@ export default {
   transform: translateY(-50%);
   background-color: rgba(0, 0, 0, 0.4);
   color: white;
+  z-index: 1000;
 }
 .anchor-letter {
   padding: 2.6px;

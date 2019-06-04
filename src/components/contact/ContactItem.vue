@@ -1,7 +1,7 @@
 <template>
   <div class="item" @click="() => this.$emit('itemClick')">
     <section>
-      <img :src="avatar" alt="#" class="avatar" />
+      <img v-lazy="avatar" alt="#" class="avatar" />
       <p class="name">{{ name }}</p>
     </section>
     <section>
@@ -12,9 +12,9 @@
 
 <script>
 export default {
-  name: "ContactItem",
-  props: ["avatar", "name"]
-};
+  name: 'ContactItem',
+  props: ['avatar', 'name'],
+}
 </script>
 
 <style scoped>

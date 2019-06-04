@@ -1,28 +1,38 @@
 <template>
-  <div id="register">
-    <BaseHeader text="注册"> </BaseHeader>
+  <div id="register" class="h-100">
+    <BaseHeader text="用户注册">
+      <template slot="left">
+        <i class="el-icon-arrow-left" @click="$router.back()"></i>
+      </template>
+      <template slot="right">
+        <el-button type="primary" @click="register" size="small"
+          >注册</el-button
+        >
+      </template>
+    </BaseHeader>
     <main class="main-top">
-      <div class="form">
+      <div class="form x-ctr">
         <el-form :model="form">
           <el-form-item label="用户名">
             <el-input v-model="form.username"></el-input>
           </el-form-item>
           <el-form-item label="邮箱">
-            <el-input v-model="form.username"></el-input>
+            <el-input v-model="form.email"></el-input>
+            <el-button
+              size="small"
+              @click="sendVerifyCode"
+              :disabled="btn_text !== '发送验证码'"
+              >{{ btn_text }}</el-button
+            >
           </el-form-item>
           <el-form-item label="验证码">
-            <el-input v-model="form.username"></el-input>
+            <el-input v-model="form.code"></el-input>
           </el-form-item>
           <el-form-item label="设置密码">
             <el-input v-model="form.password" show-password></el-input>
           </el-form-item>
           <el-form-item label="确认密码">
             <el-input v-model="form.password" show-password></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="register" class="btn-center"
-              >注册</el-button
-            >
           </el-form-item>
         </el-form>
       </div>
@@ -31,40 +41,48 @@
 </template>
 
 <script>
-import BaseHeader from "c/app/BaseHeader";
+import BaseHeader from 'c/app/BaseHeader'
 export default {
-  name: "index",
-  metaInfo: {
-    title: "register",
-    titleTemplate: "%s - Lavas",
-    meta: [
-      { name: "keywords", content: "lavas PWA" },
-      {
-        name: "description",
-        content:
-          "基于 Vue 的 PWA 解决方案，帮助开发者快速搭建 PWA 应用，解决接入 PWA 的各种问题"
-      }
-    ]
-  },
+  name: 'index',
   components: { BaseHeader },
   data() {
     return {
       form: {
-        username: "",
-        password: ""
-      }
-    };
-  }
-};
+        username: '',
+        email: '',
+        code: '',
+        password: '',
+      },
+      btn_text: '发送验证码',
+      disabled: false,
+    }
+  },
+  methods: {
+    sendVerifyCode() {
+      this.disabled = true
+      let sec = 120
+      let interval = setInterval(() => {
+        this.btn_text = `离有效期还剩${sec}秒`
+        if (sec <= 0) {
+          clearInterval(interval)
+          this.btn_text = '发送验证码'
+        }
+        sec--
+      }, 1000)
+    },
+    register() {
+      //
+    },
+  },
+}
 </script>
 
 <style>
 #register {
-  width: 100vw;
-  height: 100vh;
+  height: 100%;
 }
 .form {
-  min-width: 300px;
+  width: 90%;
   padding: 3vh 10vw;
 }
 </style>

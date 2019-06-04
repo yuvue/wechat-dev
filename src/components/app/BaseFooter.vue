@@ -7,14 +7,14 @@
             {{ count }}
           </div>
         </i>
-        <p>微信</p>
+        <p class="f-text">微信</p>
       </router-link>
     </el-col>
     <el-col :span="6">
       <router-link to="/contact">
         <div>
           <i class="icon icon-tongxunlu"></i>
-          <p>通讯录</p>
+          <p class="f-text">通讯录</p>
         </div>
       </router-link>
     </el-col>
@@ -22,7 +22,7 @@
       <router-link to="/moment">
         <div>
           <i class="icon icon-faxianxuanzhong"></i>
-          <p>瞬间</p>
+          <p class="f-text">瞬间</p>
         </div>
       </router-link>
     </el-col>
@@ -30,7 +30,7 @@
       <router-link to="/me">
         <div>
           <i class="icon icon-ren1"></i>
-          <p>我</p>
+          <p class="f-text">我</p>
         </div>
       </router-link>
     </el-col>
@@ -39,17 +39,17 @@
 
 <script>
 export default {
-  name: "BaseFooter",
+  name: 'BaseFooter',
   computed: {
     count() {
-      return this.$store.getters.allUnReadCount(this.$store.getters.user._id);
-    }
-  }
-};
+      return this.$store.getters.allUnReadCount(this.$store.getters.user._id)
+    },
+  },
+}
 </script>
 
 <style scoped lang="less">
-@import "~css/colors.less";
+@import '~css/colors.less';
 .footer {
   position: fixed;
   bottom: 0;
@@ -83,6 +83,10 @@ export default {
     top: 0;
     transform: translate(50%, -50%);
   }
+}
+
+.f-text {
+  height: 20px;
 }
 
 .router-link-active {

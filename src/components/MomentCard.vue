@@ -1,16 +1,17 @@
 <template>
   <div class="card">
     <header>
-      <section>
-        <img :src="moment.avatar" class="avatar" alt="" />
-      </section>
-      <section class="middle">
-        <p class="sender">{{ name }}</p>
-        <p class="time">{{ moment.add_time | _time }}</p>
-      </section>
+      <div>
+        <img v-lazy="moment.avatar" class="avatar" alt="" />
+        <div class="header-man">
+          <p class="sender">{{ name }}</p>
+          <p class="time">{{ moment.add_time | _time }}</p>
+        </div>
+      </div>
+      <i class="icon icon-adduser" @click="addUser"></i>
     </header>
     <div class="card-image">
-      <img :src="img" v-for="(img, i) in moment.img" :key="i" />
+      <img v-lazy="img" v-for="(img, i) in moment.img" :key="i" />
     </div>
     <section>
       <div class="card-text">
@@ -64,182 +65,194 @@
 </template>
 
 <script>
-import CommentBox from "./CommentBox";
-import _time from "filter/time";
-import AmrPlayer from "c/AmrPlayer";
+import CommentBox from './CommentBox'
+import _time from 'filter/time'
+import AmrPlayer from 'c/AmrPlayer'
 
 export default {
-  name: "Card",
-  props: ["moment"],
+  name: 'Card',
+  props: ['moment'],
   components: {
     CommentBox,
-    AmrPlayer
+    AmrPlayer,
   },
   data() {
     return {
       isComment: false,
-      text: "",
+      text: '',
       user_id: this.$store.getters.user._id,
-      isLiked: false
-    };
+      isLiked: false,
+    }
   },
   computed: {
     name() {
-      let id = this.moment.user_id;
-      if (id === this.user_id) return "我";
-      let remark = this.$store.getters.contactIdRemarkMap.get(id) || "";
-      if (remark) return remark;
-      return this.moment.nickname || "某个很帅的人";
+      let id = this.moment.user_id
+      if (id === this.user_id) return '我'
+      let remark = this.$store.getters.contactIdRemarkMap.get(id) || ''
+      if (remark) return remark
+      return this.moment.nickname || '某个很帅的人'
     },
     isCollected() {
-      return this.moment.collects.includes(this.user_id);
-    }
+      return this.moment.collects.includes(this.user_id)
+    },
   },
   methods: {
     showComment() {
-      this.isComment = !this.isComment;
+      this.isComment = !this.isComment
     },
     comment() {
-      let id = this.moment._id;
-      this.$store.dispatch("addComment", {
+      let id = this.moment._id
+      this.$store.dispatch('addComment', {
         id,
         user_id: this.user_id,
-        text: this.text
-      });
-      this.text = "";
+        text: this.text,
+      })
+      this.text = ''
     },
     collect() {
-      this.$store.dispatch("collectMoment", {
+      this.$store.dispatch('collectMoment', {
         id: this.moment._id,
-        config: this.isCollected ? -1 : 1
-      });
+        config: this.isCollected ? -1 : 1,
+      })
     },
     like() {
-      this.isLiked = !this.isLiked;
-      this.$store.dispatch("likeMoment", {
+      this.isLiked = !this.isLiked
+      this.$store.dispatch('likeMoment', {
         id: this.moment._id,
-        config: this.isLiked ? 1 : -1
-      });
-    }
+        config: this.isLiked ? 1 : -1,
+      })
+    },
+    addUser() {
+      this.$router.push({
+        name: 'contactSearchVerify',
+        params: {
+          id: this.moment.user_id,
+        },
+      })
+    },
   },
   filters: {
-    _time
-  }
-};
+    _time,
+  },
+}
 </script>
 
 <style lang="less">
-.avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 3px;
-}
-
 .card {
   width: 100%;
   padding: 15px;
   margin-bottom: 5px;
   background-color: #fff;
-}
 
-header {
-  display: flex;
-  width: 100%;
-
-  .middle {
-    margin-left: 10px;
+  header {
     display: flex;
-    flex-direction: column;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
 
-    p {
-      height: 20px;
-      line-height: 20px;
+    .header-man {
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 12px;
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 3px;
+      vertical-align: middle;
+    }
+
+    .sender {
+      font-size: 1.4rem;
+      color: #449d48;
+      line-height: 2;
+    }
+
+    .time {
+      font-size: 1rem;
+      color: #808080;
+      line-height: 1.6;
+    }
+
+    i {
+      font-size: 2rem;
     }
   }
 
-  .sender {
+  .card-image {
+    margin: 14px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+    img {
+      width: 90px;
+      height: 90px;
+      margin-right: 20px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+    }
+  }
+
+  .icon {
     font-size: 1.4rem;
-    color: #449d48;
   }
 
-  .time {
+  .card-text {
+    font-size: 1.4rem;
+    line-height: 1.3;
+    word-wrap: break-word;
+  }
+
+  .card-config {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.4rem;
+    margin-top: 14px;
+  }
+
+  .comment-write {
+    width: 100%;
+    margin-top: 20px;
+    position: relative;
+
+    .btn-send {
+      border: 1px solid #4d4d4d;
+      border-radius: 2px;
+      padding: 4px 10px;
+      background-color: #5dc261;
+      float: right;
+    }
+  }
+  .card-comment .el-input {
+    width: 70%;
+    height: 36px;
+    padding: 3px 6px;
+    vertical-align: center;
+
+    .el-input__inner {
+      height: 100%;
+    }
+  }
+  .card-comment .el-button {
+    position: absolute;
+    right: 0;
+    top: 2px;
     font-size: 1rem;
-    color: #808080;
+    vertical-align: center;
+    padding: 8px 15px;
   }
-}
-
-.card-image {
-  margin: 14px 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-
-  img {
-    width: 80px;
-    height: 80px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    border-radius: 4px;
+  .card-voice {
+    margin: 14px 0 24px;
   }
-}
-
-.icon {
-  font-size: 1.4rem;
-}
-
-.card-text {
-  font-size: 1.4rem;
-  line-height: 1.3;
-  word-wrap: break-word;
-}
-
-.card-config {
-  display: flex;
-  justify-content: space-between;
-  font-size: 1.4rem;
-  margin-top: 14px;
-}
-
-.comment-write {
-  width: 100%;
-  margin-top: 20px;
-  position: relative;
-
-  .btn-send {
-    border: 1px solid #4d4d4d;
-    border-radius: 2px;
-    padding: 4px 10px;
-    background-color: #5dc261;
-    float: right;
+  .icon {
+    font-size: 2.2rem;
+    vertical-align: middle;
   }
-}
-.card-comment .el-input {
-  width: 70%;
-  height: 36px;
-  padding: 3px 6px;
-  vertical-align: center;
-
-  .el-input__inner {
-    height: 100%;
+  .icon-star,
+  .icon-aixin1 {
+    color: red;
   }
-}
-.card-comment .el-button {
-  position: absolute;
-  right: 0;
-  top: 2px;
-  font-size: 1rem;
-  vertical-align: center;
-  padding: 8px 15px;
-}
-.card-voice {
-  margin: 14px 0 24px;
-}
-.icon {
-  font-size: 2.2rem;
-  vertical-align: middle;
-}
-.icon-star,
-.icon-aixin1 {
-  color: red;
 }
 </style>

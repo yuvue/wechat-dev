@@ -19,6 +19,13 @@ export default {
 
 <style lang="less">
 @import '~css/global';
+
+#app-container {
+  width: 100%;
+  background-color: #ccc;
+  height: 100vh;
+}
+
 #app {
   background-color: @bg;
   height: 100vh;
@@ -28,12 +35,6 @@ export default {
   #app {
     width: 54%;
     .x-ctr;
-  }
-
-  #app-container {
-    width: 100%;
-    background-color: #ccc;
-    height: 100vh;
   }
 }
 </style>

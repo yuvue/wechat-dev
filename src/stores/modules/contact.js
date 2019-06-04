@@ -71,7 +71,7 @@ const mutations = {
   },
   [READ_GROUP_MESSAGE](state, id) {
     state.contactList.some(c => {
-      c._id = id && c.messageList.forEach(m => (m.hasRead = true))
+      c._id === id && c.messageList.forEach(m => (m.hasRead = true))
     })
   },
 }

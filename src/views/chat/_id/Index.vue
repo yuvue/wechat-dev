@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="h-100">
     <BaseHeader :text="contact.remark">
       <template slot="left">
         <i class="el-icon-arrow-left" @click="$router.push('/')"></i>
@@ -22,24 +22,24 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import BaseHeader from "c/app/BaseHeader";
-import ChatFooter from "c/chat/ChatFooter";
-import TextMsgBox from "c/chat/TextMsgBox";
-import AudioMsgBox from "c/chat/AudioMsgBox";
+import { mapState } from 'vuex'
+import BaseHeader from 'c/app/BaseHeader'
+import ChatFooter from 'c/chat/ChatFooter'
+import TextMsgBox from 'c/chat/TextMsgBox'
+import AudioMsgBox from 'c/chat/AudioMsgBox'
 
 export default {
-  name: "ChatDetail",
+  name: 'ChatDetail',
   data() {
     return {
-      user: this.$store.getters["user"]
-    };
+      user: this.$store.getters['user'],
+    }
   },
   components: {
     BaseHeader,
     ChatFooter,
     TextMsgBox,
-    AudioMsgBox
+    AudioMsgBox,
   },
   computed: {
     contact() {
@@ -47,32 +47,32 @@ export default {
         contact_id,
         remark,
         messageList,
-        type
-      } = this.$store.state.contact.curContact;
+        type,
+      } = this.$store.state.contact.curContact
       let msg = messageList.map(item => {
-        let send = item.from_id === this.user._id;
+        let send = item.from_id === this.user._id
         let avatar = send
           ? this.user.avatar
-          : this.$store.getters.avatar(item.from_id);
-        return { send, avatar, ...item };
-      });
+          : this.$store.getters.avatar(item.from_id)
+        return { send, avatar, ...item }
+      })
       return {
         _id: contact_id,
         type,
         msg,
-        remark
-      };
-    }
+        remark,
+      }
+    },
   },
   beforeRouteLeave(to, from, next) {
-    if (this.contact.type === "group") {
-      this.$store.commit("READ_GROUP_MESSAGE", this.contact._id);
+    if (this.contact.type === 'group') {
+      this.$store.commit('READ_GROUP_MESSAGE', this.contact._id)
     } else {
-      this.$store.dispatch("readMessage", this.contact._id);
+      this.$store.dispatch('readMessage', this.contact._id)
     }
-    next();
-  }
-};
+    next()
+  },
+}
 </script>
 
 <style scoped></style>

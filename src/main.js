@@ -5,6 +5,7 @@ import store from './stores'
 import './plugins/element.js'
 import 'normalize.css'
 import './registerServiceWorker'
+import VueLazyLoad from 'vue-lazyload'
 
 Vue.config.productionTip = false
 
@@ -16,6 +17,10 @@ Vue.directive('anchor', {
       mainEl && e && mainEl.scrollTo(0, e.offsetTop - 45)
     }
   },
+})
+
+Vue.use(VueLazyLoad, {
+  loading: '/img/timg.gif',
 })
 
 new Vue({

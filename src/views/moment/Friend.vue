@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="h-100">
     <BaseHeader text="朋友圈">
       <template slot="left">
         <i class="el-icon-arrow-left" @click="$router.back()"></i>
@@ -12,21 +12,21 @@
 </template>
 
 <script>
-import BaseHeader from "c/app/BaseHeader";
-import Card from "c/MomentCard";
+import BaseHeader from 'c/app/BaseHeader'
+import Card from 'c/MomentCard'
 
 export default {
-  name: "MomentFriend",
+  name: 'MomentFriend',
   components: {
     BaseHeader,
-    Card
+    Card,
   },
   computed: {
     moments() {
-      return this.$store.state.moment.friendList;
-    }
-  }
-};
+      return this.$store.state.moment.friendList
+    },
+  },
+}
 </script>
 
 <style scoped lang="less"></style>

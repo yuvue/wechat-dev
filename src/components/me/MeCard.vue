@@ -13,9 +13,9 @@
 
 <script>
 export default {
-  name: "MeCard",
-  props: ["nickname", "email", "avatar"]
-};
+  name: 'MeCard',
+  props: ['nickname', 'email', 'avatar'],
+}
 </script>
 
 <style lang="less" scoped>
@@ -42,7 +42,6 @@ export default {
   display: flex;
   flex-direction: column;
   line-height: 30px;
-  padding-left: 20px;
 
   .name {
     font-size: 1.8em;

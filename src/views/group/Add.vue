@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="h-100">
     <BaseHeader text="发起群聊">
       <template slot="left">
         <i class="el-icon-arrow-left" @click="$router.back()"></i>
@@ -15,21 +15,21 @@
 </template>
 
 <script>
-import BaseHeader from "c/app/BaseHeader";
-import ContactCardSelectSort from "c/contact/ContactCardSelectSort";
-import { addGroup } from "service/group";
+import BaseHeader from 'c/app/BaseHeader'
+import ContactCardSelectSort from 'c/contact/ContactCardSelectSort'
+import { addGroup } from 'service/group'
 
 export default {
-  name: "groupAdd",
+  name: 'groupAdd',
   components: {
     BaseHeader,
-    ContactCardSelectSort
+    ContactCardSelectSort,
   },
   methods: {
     async submit() {
-      let idList = this.$refs.card.idList;
-      let res = await addGroup({ idList });
-    }
-  }
-};
+      let idList = this.$refs.card.idList
+      let res = await addGroup({ idList })
+    },
+  },
+}
 </script>

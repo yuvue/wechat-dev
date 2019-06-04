@@ -1,7 +1,7 @@
 <template>
   <div class="msg-flex" :class="msg.send ? 'msg__send': 'msg__receive'">
     <p class="msg-text">{{ msg.text }}</p>
-    <img :src="msg.avatar" alt="" />
+    <img v-lazy="msg.avatar" alt="" />
   </div>
 </template>
 
