@@ -1,35 +1,15 @@
-# wechat
+# 微信APP的web端实现
 
-## Project setup
+### 一、项目概况
 
-```
-yarn install
-```
+1. 这是为毕业设计而做的项目
+2. 技术栈为 `vue` 全家桶
+3. 后端采用的 `node` 的 `koa` 框架
+4. 数据库采用 `mongodb`
 
-### Compiles and hot-reloads for development
+### 二、使用方法
 
-```
-yarn run serve
-```
-
-### Compiles and minifies for production
-
-```
-yarn run build
-```
-
-### Run your tests
-
-```
-yarn run test
-```
-
-### Lints and fixes files
-
-```
-yarn run lint
-```
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
+1. 先配置 `node` 、`mongodb `环境
+2. 如图1，在 `mongodb` 中创建一个 **`wechat`** 数据库， 文档会自动随着项目创建，只需要有个数据库存在
+3. 打开项目 `npm install` 安装依赖
+4. `npm run start` 在浏览器中运行即可
