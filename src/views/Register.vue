@@ -5,9 +5,7 @@
         <i class="el-icon-arrow-left" @click="$router.back()"></i>
       </template>
       <template slot="right">
-        <el-button type="primary" @click="register" size="small"
-          >注册</el-button
-        >
+        <el-button type="primary" @click="onSubmit" size="small">注册</el-button>
       </template>
     </BaseHeader>
     <main class="main-top">
@@ -22,8 +20,7 @@
               size="small"
               @click="sendVerifyCode"
               :disabled="btn_text !== '发送验证码'"
-              >{{ btn_text }}</el-button
-            >
+            >{{ btn_text }}</el-button>
           </el-form-item>
           <el-form-item label="验证码">
             <el-input v-model="form.code"></el-input>
@@ -32,7 +29,7 @@
             <el-input v-model="form.password" show-password></el-input>
           </el-form-item>
           <el-form-item label="确认密码">
-            <el-input v-model="form.password" show-password></el-input>
+            <el-input v-model="confirmPassword" show-password></el-input>
           </el-form-item>
         </el-form>
       </div>
@@ -42,6 +39,8 @@
 
 <script>
 import BaseHeader from 'c/app/BaseHeader'
+import { register, getVerifyCode } from '@/services/user'
+
 export default {
   name: 'index',
   components: { BaseHeader },
@@ -53,25 +52,35 @@ export default {
         code: '',
         password: '',
       },
+      confirmPassword: '',
       btn_text: '发送验证码',
       disabled: false,
     }
   },
   methods: {
     sendVerifyCode() {
-      this.disabled = true
-      let sec = 120
-      let interval = setInterval(() => {
-        this.btn_text = `离有效期还剩${sec}秒`
-        if (sec <= 0) {
-          clearInterval(interval)
-          this.btn_text = '发送验证码'
-        }
-        sec--
-      }, 1000)
+      let email = this.form.email
+      !email && this.$message.warning('请输入邮箱')
+      getVerifyCode({ email }).then(({ code }) => {
+        this.disabled = true
+        let sec = 60
+        let interval = setInterval(() => {
+          this.btn_text = `离有效期还剩${sec}秒`
+          if (sec <= 0) {
+            clearInterval(interval)
+            this.btn_text = '发送验证码'
+          }
+          sec--
+        }, 1000)
+      })
     },
-    register() {
-      //
+    onSubmit() {
+      if (this.confirmPassword !== this.form.password) {
+        return this.$message.error('前后密码不一致')
+      }
+      register(this.form).then(() => {
+        this.$router.push('/login')
+      })
     },
   },
 }

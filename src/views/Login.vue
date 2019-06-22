@@ -1,6 +1,6 @@
 <template>
   <div id="login" class="h-100">
-    <BaseHeader text="登录"> </BaseHeader>
+    <BaseHeader text="登录"></BaseHeader>
     <main class="main-top">
       <div class="form x-ctr">
         <el-form :model="form">
@@ -13,9 +13,7 @@
         </el-form>
         <div>
           <el-button type="primary" @click="submit">登录</el-button>
-          <el-button @click="$router.push('/register')" class="f-r"
-            >注册</el-button
-          >
+          <el-button @click="$router.push('/register')" class="f-r">注册</el-button>
         </div>
       </div>
     </main>

@@ -19,6 +19,7 @@
     "pwa-manifest-webpack-plugin": "^1.0.5",
     "register-service-worker": "^1.6.2",
     "socket.io-client": "^2.2.0",
+    "source-map": "^0.7.3",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "universal-cookie": "^4.0.0",

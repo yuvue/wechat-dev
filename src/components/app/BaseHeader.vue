@@ -12,14 +12,14 @@
 
 <script>
 export default {
-  name: "BaseHeader",
-  props: ["text"]
-};
+  name: 'BaseHeader',
+  props: ['text'],
+}
 </script>
 
 <style scoped lang="less">
-@import "~css/global.less";
-@import "~animate.css";
+@import '~css/global.less';
+@import '~animate.css';
 .header {
   position: fixed;
   top: 0;

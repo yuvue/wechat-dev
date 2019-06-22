@@ -4,12 +4,7 @@ const state = {
   ws: null,
 }
 
-// const baseURL =
-//   process.env.NODE_ENV === 'production'
-//     ? `ws://47.96.72.48:3000`
-//     : 'ws://127.0.0.1:3000'
-
-const baseURL = `ws://47.96.72.48:3000`
+const baseURL = `wss://demo.jajun.top/socket/wechat`
 
 const mutations = {
   wssendMessage(state, message) {

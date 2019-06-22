@@ -22,7 +22,7 @@ module.exports = {
   pluginOptions: {
     'style-resources-loader': {
       preProcessor: 'less',
-      patterns: ['/Users/sharp/Project/wechat/src/assets/css/index.less'],
+      patterns: [path.join(__dirname, '/src/assets/css/index.less')],
     },
   },
   pwa: {
@@ -54,7 +54,7 @@ module.exports = {
         changeOrigin: true,
       },
       '/api': {
-        target: 'http://localhost:3000',
+        target: 'https://demo.jajun.top',
         changeOrigin: true,
       },
       '/upload': {

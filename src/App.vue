@@ -1,6 +1,8 @@
 <template>
   <div id="app-container">
-    <div id="app"><router-view></router-view></div>
+    <div id="app">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
@@ -27,7 +29,7 @@ export default {
 }
 
 #app {
-  background-color: @bg;
+  background: #f2f2f2;
   height: 100vh;
 }
 

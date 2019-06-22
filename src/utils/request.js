@@ -16,7 +16,7 @@ export default (method, url, params = {}, option = {}) => {
     return
   }
 
-  if (method === 'get') {
+  if (method === 'get' && JSON.stringify(params) !== '{}') {
     url = concatURL(url, params)
   }
 
