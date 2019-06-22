@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="h-100">
     <BaseHeader text="新的朋友">
       <template slot="left">
         <i class="el-icon-arrow-left" @click="$router.back()"></i>

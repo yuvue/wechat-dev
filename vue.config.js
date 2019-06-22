@@ -54,7 +54,7 @@ module.exports = {
         changeOrigin: true,
       },
       '/api': {
-        target: 'https://demo.jajun.top',
+        target: 'http://localhost:3000',
         changeOrigin: true,
       },
       '/upload': {
