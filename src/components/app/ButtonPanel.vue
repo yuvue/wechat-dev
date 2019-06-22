@@ -7,9 +7,9 @@
 
 <script>
 export default {
-  name: "ButtonPanel",
-  props: ["text", "icon"]
-};
+  name: 'ButtonPanel',
+  props: ['text', 'icon'],
+}
 </script>
 
 <style scoped>

@@ -5,23 +5,22 @@
         <i class="el-icon-plus" @click="$router.push('/moment/add')"></i>
       </template>
     </BaseHeader>
-    <main class="main-top main-bottom">
-      <Card v-for="moment in moments" :key="moment._id" :moment="moment">
-      </Card>
-    </main>
+    <CardScroll :moments="moments"></CardScroll>
     <BaseFooter></BaseFooter>
   </div>
 </template>
 
 <script>
-import Card from 'c/MomentCard'
+import CardScroll from 'c/CardScroll'
 import BaseHeader from 'c/app/BaseHeader'
 import BaseFooter from 'c/app/BaseFooter'
+import scroll from '@/mixins/scroll'
 
 export default {
   name: 'Moment',
+  mixins: [scroll],
   components: {
-    Card,
+    CardScroll,
     BaseFooter,
     BaseHeader,
   },

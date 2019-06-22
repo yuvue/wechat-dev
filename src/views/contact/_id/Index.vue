@@ -34,27 +34,27 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex'
 
-import BaseHeader from "c/app/BaseHeader";
-import MeCard from "c/me/MeCard";
-import MenuPanelArrow from "c/app/MenuPanelArrow";
-import ButtonPanel from "c/app/ButtonPanel";
+import BaseHeader from 'c/app/BaseHeader'
+import MeCard from 'c/me/MeCard'
+import MenuPanelArrow from 'c/app/MenuPanelArrow'
+import ButtonPanel from 'c/app/ButtonPanel'
 
 export default {
-  name: "ContactDetail",
+  name: 'ContactDetail',
   computed: {
     ...mapState({
-      contact: state => state.contact.curContact
-    })
+      contact: state => state.contact.curContact,
+    }),
   },
   components: {
     BaseHeader,
     MeCard,
     MenuPanelArrow,
-    ButtonPanel
-  }
-};
+    ButtonPanel,
+  },
+}
 </script>
 
 <style scoped></style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="msg-flex" :class="msg.send ? 'msg__send': 'msg__receive'">
+  <div class="msg-flex" :class="msg.send ? 'msg__send' : 'msg__receive'">
     <p class="msg-text">{{ msg.text }}</p>
     <img v-lazy="msg.avatar" alt="" />
   </div>
@@ -13,8 +13,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-
-@import "~css/colors";
+@import '~css/colors';
 
 .msg-flex {
   display: flex;
@@ -39,7 +38,6 @@ img {
   height: 40px;
 }
 
-
 .msg__send {
   .msg-text {
     background-color: #0bb908;
@@ -54,17 +52,13 @@ img {
       transform: translateX(52%) rotate(45deg);
       border: 1px solid;
       background-color: inherit;
-      border-color: grey grey transparent transparent ;
+      border-color: grey grey transparent transparent;
     }
   }
 }
 
-
-
-
 .msg__receive {
   flex-direction: row-reverse;
-
 
   .msg-text:after {
     content: '';
@@ -73,7 +67,7 @@ img {
     top: 15px;
     width: 6px;
     height: 6px;
-    transform: translateX(-52%) rotate(45deg) ;
+    transform: translateX(-52%) rotate(45deg);
     background-color: @bg;
     border: 1px solid;
     border-color: transparent transparent grey grey;

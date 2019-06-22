@@ -11,12 +11,12 @@
 </template>
 
 <script>
-import MenuPanel from "c/app/MenuPanel";
+import MenuPanel from 'c/app/MenuPanel'
 
 export default {
   components: {
-    MenuPanel
+    MenuPanel,
   },
-  props: ["email", "isEdit"]
-};
+  props: ['email', 'isEdit'],
+}
 </script>

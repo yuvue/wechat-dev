@@ -9,7 +9,7 @@
     </div>
     <div v-for="alpha in Object.keys(contacts)" :key="alpha">
       <div class="letter" :id="`a-${alpha}`">{{ alpha }}</div>
-      <div v-for="i in contacts[alpha]">
+      <div v-for="i in contacts[alpha]" :key="i.contact_id">
         <ContactItem
           :avatar="i.avatar"
           :name="i.remark"
@@ -28,38 +28,38 @@
 </template>
 
 <script>
-import ContactItem from "./ContactItem";
-import Anchor from "c/contact/Anchor";
+import ContactItem from './ContactItem'
+import Anchor from 'c/contact/Anchor'
 
 export default {
   components: {
     ContactItem,
-    Anchor
+    Anchor,
   },
   data() {
     return {
       idList: [],
-      a: ""
-    };
+      a: '',
+    }
   },
   computed: {
     contacts() {
-      return this.$store.getters.contacts;
-    }
+      return this.$store.getters.contacts
+    },
   },
   methods: {
     itemClick(id) {
-      let idList = this.idList;
+      let idList = this.idList
       idList.includes(id)
         ? idList.splice(idList.indexOf(id), 1)
-        : this.idList.push(id);
+        : this.idList.push(id)
     },
     removeItem(id) {
-      let idList = this.idList;
-      return idList.splice(idList.indexOf(id), 1);
-    }
-  }
-};
+      let idList = this.idList
+      return idList.splice(idList.indexOf(id), 1)
+    },
+  },
+}
 </script>
 
 <style lang="less">

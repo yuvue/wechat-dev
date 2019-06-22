@@ -22,7 +22,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import BaseHeader from 'c/app/BaseHeader'
 import ChatFooter from 'c/chat/ChatFooter'
 import TextMsgBox from 'c/chat/TextMsgBox'

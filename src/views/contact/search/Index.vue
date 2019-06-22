@@ -26,44 +26,44 @@
 </template>
 
 <script>
-import BaseHeader from "c/app/BaseHeader";
-import MeCard from "c/me/MeCard";
-import ButtonPanel from "c/app/ButtonPanel";
-import { searchUser } from "@/services/user";
+import BaseHeader from 'c/app/BaseHeader'
+import MeCard from 'c/me/MeCard'
+import ButtonPanel from 'c/app/ButtonPanel'
+import { searchUser } from '@/services/user'
 
 export default {
-  name: "Search",
+  name: 'Search',
   data() {
     return {
-      email: "chenhuan@163.com",
+      email: 'chenhuan@163.com',
       user: {
-        email: "",
-        nickname: "",
-        avatar: ""
-      }
-    };
+        email: '',
+        nickname: '',
+        avatar: '',
+      },
+    }
   },
   components: {
     BaseHeader,
     MeCard,
-    ButtonPanel
+    ButtonPanel,
   },
   methods: {
     async search() {
-      let email = this.email;
-      let { user, code } = await searchUser({ email });
-      code === 0 && (this.user = user);
+      let email = this.email
+      let { user, code } = await searchUser({ email })
+      code === 0 && (this.user = user)
     },
     addFriend() {
       this.$router.push({
-        name: "contactSearchVerify",
+        name: 'contactSearchVerify',
         params: {
-          id: this.user._id
-        }
-      });
-    }
-  }
-};
+          id: this.user._id,
+        },
+      })
+    },
+  },
+}
 </script>
 
 <style lang="less" scoped>

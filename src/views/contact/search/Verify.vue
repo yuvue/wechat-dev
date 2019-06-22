@@ -16,31 +16,31 @@
 </template>
 
 <script>
-import BaseHeader from "c/app/BaseHeader";
-import { addContact } from "@/services/contact";
+import BaseHeader from 'c/app/BaseHeader'
+import { addContact } from '@/services/contact'
 
 export default {
-  name: "Verify",
+  name: 'Verify',
   data() {
     return {
-      verifyText: "你好，我是"
-    };
+      verifyText: '你好，我是',
+    }
   },
   components: {
-    BaseHeader
+    BaseHeader,
   },
   methods: {
     async add() {
-      let id = this.$route.params.id;
-      let verifyText = this.verifyText;
-      let { user } = await addContact({ id, verifyText });
+      let id = this.$route.params.id
+      let verifyText = this.verifyText
+      let { user } = await addContact({ id, verifyText })
       if (user) {
-        this.$store.commit("ADD_CONTACT", user);
-        this.$router.push("/contact");
+        this.$store.commit('ADD_CONTACT', user)
+        this.$router.push('/contact')
       }
-    }
-  }
-};
+    },
+  },
+}
 </script>
 
 <style scoped lang="less">

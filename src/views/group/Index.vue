@@ -13,7 +13,8 @@
     </BaseHeader>
     <main class="main-top main-bottom">
       <ContactItem
-        v-for="g in $store.getters.groups"
+        v-for="(g, idx) in $store.getters.groups"
+        :key="idx"
         :name="g.remark"
         :avatar="g.avatar"
         @itemClick="click(g)"
@@ -23,20 +24,20 @@
 </template>
 
 <script>
-import BaseHeader from "c/app/BaseHeader";
-import ContactItem from "c/contact/ContactItem";
+import BaseHeader from 'c/app/BaseHeader'
+import ContactItem from 'c/contact/ContactItem'
 
 export default {
-  name: "chat",
+  name: 'chat',
   components: {
     BaseHeader,
-    ContactItem
+    ContactItem,
   },
   methods: {
     click(g) {
-      this.$router.push(`/chat/${g.remark}`);
-      this.$store.commit("SET_CUR_CONTACT", g);
-    }
-  }
-};
+      this.$router.push(`/chat/${g.remark}`)
+      this.$store.commit('SET_CUR_CONTACT', g)
+    },
+  },
+}
 </script>

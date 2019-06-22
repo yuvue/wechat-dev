@@ -5,21 +5,19 @@
         <i class="el-icon-arrow-left" @click="$router.back()"></i>
       </template>
     </BaseHeader>
-    <main class="main-top main-bottom">
-      <Card v-for="moment in moments" :key="moment._id" :moment="moment" />
-    </main>
+    <CardScroll :moments="moments"></CardScroll>
   </div>
 </template>
 
 <script>
 import BaseHeader from 'c/app/BaseHeader'
-import Card from 'c/MomentCard'
+import CardScroll from 'c/CardScroll'
 
 export default {
   name: 'MomentFriend',
   components: {
     BaseHeader,
-    Card,
+    CardScroll,
   },
   data() {
     return {

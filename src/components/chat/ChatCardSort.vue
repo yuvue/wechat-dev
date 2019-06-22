@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div v-for="alpha in Object.keys(contacts)">
+    <div v-for="alpha in Object.keys(contacts)" :key="alpha">
       <div class="letter">{{ alpha }}</div>
-      <div v-for="i in contacts[alpha]">
+      <div v-for="i in contacts[alpha]" :key="i.contact_id">
         <ChatItem
           v-for="i in chats"
           :key="i._id"
@@ -18,23 +18,23 @@
 </template>
 
 <script>
-import ChatItem from "./ChatItem";
+import ChatItem from './ChatItem'
 export default {
   components: {
-    ChatItem
+    ChatItem,
   },
   computed: {
     contacts() {
-      return this.$store.getters["contacts"];
-    }
+      return this.$store.getters['contacts']
+    },
   },
   methods: {
     itemClick(contact) {
-      this.$router.push(`/contact/${contact.remark}`);
-      this.$store.dispatch("setCurContact", contact);
-    }
-  }
-};
+      this.$router.push(`/contact/${contact.remark}`)
+      this.$store.dispatch('setCurContact', contact)
+    },
+  },
+}
 </script>
 
 <style lang="less">

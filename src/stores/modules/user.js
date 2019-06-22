@@ -4,10 +4,10 @@
  * @Description: 登录用户的Vuex
  */
 
-import { userEdit } from "@/services/user";
+import { userEdit } from '@/services/user'
 
-export const SET_USER = "SET_USER";
-export const UPDATE_AVATAR = "UPDATE_AVATAR";
+export const SET_USER = 'SET_USER'
+export const UPDATE_AVATAR = 'UPDATE_AVATAR'
 
 /**
  * 用户信息
@@ -16,14 +16,14 @@ export const UPDATE_AVATAR = "UPDATE_AVATAR";
  */
 const state = {
   user: {
-    _id: "",
-    email: "",
-    nickname: "",
-    avatar: "",
-    address: "",
-    signature: ""
-  }
-};
+    _id: '',
+    email: '',
+    nickname: '',
+    avatar: '',
+    address: '',
+    signature: '',
+  },
+}
 
 const mutations = {
   /**
@@ -31,9 +31,9 @@ const mutations = {
    * @param {object} val 用户信息
    */
   [SET_USER](state, val) {
-    state.user = val;
-    localStorage.getItem("userinfo") && localStorage.removeItem("userinfo");
-    localStorage.setItem("userinfo", JSON.stringify(val));
+    state.user = val
+    localStorage.getItem('userinfo') && localStorage.removeItem('userinfo')
+    localStorage.setItem('userinfo', JSON.stringify(val))
   },
   /**
    * 更新用户头像
@@ -41,31 +41,31 @@ const mutations = {
    * @param {string} val 用户头像url
    */
   [UPDATE_AVATAR](state, val) {
-    state.user.avatar = val;
-  }
-};
+    state.user.avatar = val
+  },
+}
 
 const actions = {
   setUser({ commit }, val) {
-    commit(SET_USER, val);
+    commit(SET_USER, val)
   },
   updateAvatar({ commit, state }, val) {
-    commit(UPDATE_AVATAR, val);
-    userEdit({ avatar: val, _id: state.info._id });
-  }
-};
+    commit(UPDATE_AVATAR, val)
+    userEdit({ avatar: val, _id: state.info._id })
+  },
+}
 
 const getters = {
   user(state) {
-    return state.user;
-  }
-};
+    return state.user
+  },
+}
 
 const user = {
   state,
   mutations,
   actions,
-  getters
-};
+  getters,
+}
 
-export default user;
+export default user

@@ -7,7 +7,8 @@
     </BaseHeader>
     <main class="main-top main-bottom">
       <NewFriendPanel
-        v-for="contact in $store.getters.newfriends"
+        v-for="(contact, idx) in $store.getters.newfriends"
+        :key="idx"
         :contact="contact"
       ></NewFriendPanel>
     </main>
@@ -15,14 +16,14 @@
 </template>
 
 <script>
-import BaseHeader from "c/app/BaseHeader";
-import NewFriendPanel from "c/contact/NewFriendPanel";
+import BaseHeader from 'c/app/BaseHeader'
+import NewFriendPanel from 'c/contact/NewFriendPanel'
 
 export default {
-  name: "ContactFriend",
+  name: 'ContactFriend',
   components: {
     BaseHeader,
-    NewFriendPanel
-  }
-};
+    NewFriendPanel,
+  },
+}
 </script>

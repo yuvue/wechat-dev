@@ -21,28 +21,28 @@
 
 <script>
 export default {
-  name: "Upload",
+  name: 'Upload',
   data() {
-    return { pictureList: [], srcList: [] };
+    return { pictureList: [], srcList: [] }
   },
   methods: {
     inputImage() {
-      let fileList = this.$refs.pictures.files;
+      let fileList = this.$refs.pictures.files
 
-      this.pictureList = fileList;
-      const readerList = [];
+      this.pictureList = fileList
+      const readerList = []
       for (let i = 0; i < fileList.length; i++) {
-        let reader = new FileReader();
+        let reader = new FileReader()
         reader.onload = () => {
-          let dataURL = reader.result;
-          readerList.push(dataURL);
-        };
-        reader.readAsDataURL(fileList[i]);
+          let dataURL = reader.result
+          readerList.push(dataURL)
+        }
+        reader.readAsDataURL(fileList[i])
       }
-      this.srcList = readerList;
-    }
-  }
-};
+      this.srcList = readerList
+    },
+  },
+}
 </script>
 
 <style scoped lang="less">

@@ -10,8 +10,8 @@
             :to="{
               name: 'detailId',
               params: {
-                id: Number($route.params.id) + 1
-              }
+                id: Number($route.params.id) + 1,
+              },
             }"
           >
             Detail {{ Number($route.params.id) + 1 }}
@@ -61,51 +61,51 @@
 let state = {
   appHeaderState: {
     show: true,
-    title: "Lavas",
+    title: 'Lavas',
     showMenu: false,
     showBack: true,
     showLogo: false,
     actions: [
       {
-        icon: "home",
+        icon: 'home',
         route: {
-          name: "index"
-        }
-      }
-    ]
-  }
-};
+          name: 'index',
+        },
+      },
+    ],
+  },
+}
 
 function setState(store) {
-  store.dispatch("appShell/appHeader/setAppHeader", state.appHeaderState);
+  store.dispatch('appShell/appHeader/setAppHeader', state.appHeaderState)
 }
 
 export default {
-  name: "detailId",
+  name: 'detailId',
   metaInfo() {
     return {
       title: `Detail ${this.$route.params.id}`,
-      titleTemplate: "%s - Lavas",
+      titleTemplate: '%s - Lavas',
       meta: [
-        { name: "keywords", content: "lavas PWA" },
+        { name: 'keywords', content: 'lavas PWA' },
         {
-          name: "description",
+          name: 'description',
           content:
-            "基于 Vue 的 PWA 解决方案，帮助开发者快速搭建 PWA 应用，解决接入 PWA 的各种问题"
-        }
-      ]
-    };
+            '基于 Vue 的 PWA 解决方案，帮助开发者快速搭建 PWA 应用，解决接入 PWA 的各种问题',
+        },
+      ],
+    }
   },
-  async asyncData({ store, route }) {
-    setState(store);
-    await new Promise((resolve, reject) => {
-      setTimeout(resolve, 500);
-    });
+  async asyncData({ store }) {
+    setState(store)
+    await new Promise(resolve => {
+      setTimeout(resolve, 500)
+    })
   },
   activated() {
-    setState(this.$store);
-  }
-};
+    setState(this.$store)
+  },
+}
 </script>
 
 <style lang="stylus" scoped>

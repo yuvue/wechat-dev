@@ -2,28 +2,28 @@
   <div class="box">
     <img :src="comment['avatar']" alt="" />
     <div class="comment">
-      <p class="time">{{ comment["add_time"] | filterTime }}</p>
-      <p class="text">{{ comment["text"] }}</p>
+      <p class="time">{{ comment['add_time'] | filterTime }}</p>
+      <p class="text">{{ comment['text'] }}</p>
     </div>
   </div>
 </template>
 
 <script>
-import filterTime from "@/utils/filterTime";
+import filterTime from '@/utils/filterTime'
 export default {
-  name: "CommentBox",
+  name: 'CommentBox',
   props: {
-    comment: { type: Object }
+    comment: { type: Object },
   },
   data() {
     return {
-      commentText: ""
-    };
+      commentText: '',
+    }
   },
   filters: {
-    filterTime
-  }
-};
+    filterTime,
+  },
+}
 </script>
 
 <style lang="less" scoped>

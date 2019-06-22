@@ -22,22 +22,22 @@
 
 <script>
 export default {
-  name: "NewFriendPanel",
-  props: ["contact"],
+  name: 'NewFriendPanel',
+  props: ['contact'],
   methods: {
     add() {
-      let id = this.contact.contact_id;
-      this.$store.dispatch("configFriend", { id, config: 1 });
+      let id = this.contact.contact_id
+      this.$store.dispatch('configFriend', { id, config: 1 })
     },
     refuse() {
-      let id = this.contact.contact_id;
-      this.$store.dispatch("configFriend", { id, config: -1 });
-    }
+      let id = this.contact.contact_id
+      this.$store.dispatch('configFriend', { id, config: -1 })
+    },
   },
   mounted() {
     //
-  }
-};
+  },
+}
 </script>
 
 <style scoped lang="less">

@@ -15,13 +15,13 @@
 </template>
 
 <script>
-import BaseHeader from "c/app/BaseHeader";
+import BaseHeader from 'c/app/BaseHeader'
 
 export default {
   components: {
-    BaseHeader
-  }
-};
+    BaseHeader,
+  },
+}
 </script>
 
 <style lang="less">

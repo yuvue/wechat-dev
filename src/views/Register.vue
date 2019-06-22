@@ -5,7 +5,9 @@
         <i class="el-icon-arrow-left" @click="$router.back()"></i>
       </template>
       <template slot="right">
-        <el-button type="primary" @click="onSubmit" size="small">注册</el-button>
+        <el-button type="primary" @click="onSubmit" size="small"
+          >注册</el-button
+        >
       </template>
     </BaseHeader>
     <main class="main-top">
@@ -20,7 +22,8 @@
               size="small"
               @click="sendVerifyCode"
               :disabled="btn_text !== '发送验证码'"
-            >{{ btn_text }}</el-button>
+              >{{ btn_text }}</el-button
+            >
           </el-form-item>
           <el-form-item label="验证码">
             <el-input v-model="form.code"></el-input>
@@ -61,7 +64,7 @@ export default {
     sendVerifyCode() {
       let email = this.form.email
       !email && this.$message.warning('请输入邮箱')
-      getVerifyCode({ email }).then(({ code }) => {
+      getVerifyCode({ email }).then(() => {
         this.disabled = true
         let sec = 60
         let interval = setInterval(() => {

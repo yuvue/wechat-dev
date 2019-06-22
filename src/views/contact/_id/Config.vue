@@ -31,20 +31,20 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import MenuPanel from "c/app/MenuPanel";
-import BaseHeader from "c/app/BaseHeader";
+import { mapState } from 'vuex'
+import MenuPanel from 'c/app/MenuPanel'
+import BaseHeader from 'c/app/BaseHeader'
 
 export default {
-  name: "ContactConfig",
+  name: 'ContactConfig',
   components: {
     BaseHeader,
-    MenuPanel
+    MenuPanel,
   },
   computed: {
     ...mapState({
-      contact: state => state.contact.curContact
-    })
-  }
-};
+      contact: state => state.contact.curContact,
+    }),
+  },
+}
 </script>

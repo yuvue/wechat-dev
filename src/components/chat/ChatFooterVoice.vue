@@ -13,27 +13,27 @@
 </template>
 
 <script>
-import Recorder from "../Recorder";
+import Recorder from '../Recorder'
 export default {
-  name: "ChatFooterVoice",
+  name: 'ChatFooterVoice',
   components: {
-    Recorder
+    Recorder,
   },
   methods: {
     submit() {
-      let { audio, seconds } = this.$refs.recorder;
-      let fd = new FormData();
-      fd.append("audio", audio);
-      fd.append("sec", seconds);
-      this.$emit("send", "audio", fd);
-    }
+      let { audio, seconds } = this.$refs.recorder
+      let fd = new FormData()
+      fd.append('audio', audio)
+      fd.append('sec', seconds)
+      this.$emit('send', 'audio', fd)
+    },
   },
-  mounted() {}
-};
+  mounted() {},
+}
 </script>
 
 <style lang="less" scoped>
-@import "~css/modules/chat-footer";
+@import '~css/modules/chat-footer';
 
 .el-input__inner {
   text-align: center;

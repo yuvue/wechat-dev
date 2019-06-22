@@ -14,17 +14,17 @@
 </template>
 
 <script>
-import ContactItem from "./ContactItem";
+import ContactItem from './ContactItem'
 export default {
   components: {
-    ContactItem
+    ContactItem,
   },
   methods: {
     itemClick(url) {
-      this.$router.push(url);
-    }
-  }
-};
+      this.$router.push(url)
+    },
+  },
+}
 </script>
 
 <style lang="less">

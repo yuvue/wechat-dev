@@ -60,92 +60,92 @@
 </template>
 
 <script>
-import BaseHeader from "c/app/BaseHeader";
-import Recorder from "c/Recorder";
-import Upload from "c/Upload";
-import { _addMoment } from "@/services/moment";
+import BaseHeader from 'c/app/BaseHeader'
+import Recorder from 'c/Recorder'
+import Upload from 'c/Upload'
+import { _addMoment } from '@/services/moment'
 
 const configData = {
   仅自己可见: -1,
   好友可见: 1,
-  广场可见: 2
-};
+  广场可见: 2,
+}
 
 export default {
-  name: "addMoment",
+  name: 'addMoment',
   components: {
     BaseHeader,
     Recorder,
-    Upload
+    Upload,
   },
   data() {
     return {
-      textarea: "",
+      textarea: '',
       tags: [],
       inputVisible: false,
-      inputValue: "",
-      dialogImageUrl: "",
+      inputValue: '',
+      dialogImageUrl: '',
       dialogVisible: false,
-      config: "广场可见"
-    };
+      config: '广场可见',
+    }
   },
   methods: {
     handleClose(tag) {
-      this.tags.splice(this.tags.indexOf(tag), 1);
+      this.tags.splice(this.tags.indexOf(tag), 1)
     },
 
     showInput() {
-      this.inputVisible = true;
-      this.$nextTick(_ => {
-        this.$refs.saveTagInput.$refs.input.focus();
-      });
+      this.inputVisible = true
+      this.$nextTick(() => {
+        this.$refs.saveTagInput.$refs.input.focus()
+      })
     },
 
     handleInputConfirm() {
-      let inputValue = this.inputValue;
+      let inputValue = this.inputValue
       if (inputValue) {
-        this.tags.push(inputValue);
+        this.tags.push(inputValue)
       }
-      this.inputVisible = false;
-      this.inputValue = "";
+      this.inputVisible = false
+      this.inputValue = ''
     },
     preview(file) {
-      this.dialogImageUrl = file.url;
-      this.dialogVisible = true;
+      this.dialogImageUrl = file.url
+      this.dialogVisible = true
     },
     beforeUpload(file) {
-      const isJPG = file.type === "image/jpeg";
-      const isLt2M = file.size / 1024 / 1024 < 2;
+      const isJPG = file.type === 'image/jpeg'
+      const isLt2M = file.size / 1024 / 1024 < 2
 
       if (!isJPG) {
-        this.$message.error("上传头像图片只能是 JPG 格式!");
+        this.$message.error('上传头像图片只能是 JPG 格式!')
       }
       if (!isLt2M) {
-        this.$message.error("上传头像图片大小不能超过 2MB!");
+        this.$message.error('上传头像图片大小不能超过 2MB!')
       }
-      return isJPG && isLt2M;
+      return isJPG && isLt2M
     },
     async submit() {
-      let text = this.textarea;
-      let tags = this.tags;
-      let { audio, seconds } = this.$refs.recorder;
-      let pictureList = this.$refs.upload.pictureList;
-      let config = configData[this.config];
+      let text = this.textarea
+      let tags = this.tags
+      let { audio, seconds } = this.$refs.recorder
+      let pictureList = this.$refs.upload.pictureList
+      let config = configData[this.config]
 
-      let fr = new FormData();
+      let fr = new FormData()
       for (let i = 0; i < pictureList.length; i++) {
-        fr.append(`i${i}`, pictureList[i]);
+        fr.append(`i${i}`, pictureList[i])
       }
-      fr.append("text", text);
-      fr.append("tags", tags);
-      fr.append("audio", audio);
-      fr.append("seconds", seconds);
-      fr.append("config", config);
-      let res = await _addMoment(fr);
-      res && res.data && this.$store.commit("ADD_LIST", res.data);
-    }
-  }
-};
+      fr.append('text', text)
+      fr.append('tags', tags)
+      fr.append('audio', audio)
+      fr.append('seconds', seconds)
+      fr.append('config', config)
+      let res = await _addMoment(fr)
+      res && res.data && this.$store.commit('ADD_LIST', res.data)
+    },
+  },
+}
 </script>
 
 <style lang="less">

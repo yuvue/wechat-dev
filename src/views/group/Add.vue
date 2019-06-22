@@ -28,7 +28,7 @@ export default {
   methods: {
     async submit() {
       let idList = this.$refs.card.idList
-      let res = await addGroup({ idList })
+      await addGroup({ idList })
     },
   },
 }

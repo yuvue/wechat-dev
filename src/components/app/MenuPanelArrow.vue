@@ -9,9 +9,9 @@
 
 <script>
 export default {
-  name: "MenuPanel",
-  props: ["name"]
-};
+  name: 'MenuPanel',
+  props: ['name'],
+}
 </script>
 
 <style scoped>

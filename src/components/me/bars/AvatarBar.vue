@@ -25,18 +25,18 @@
 </template>
 
 <script>
-import MenuPanel from "c/app/MenuPanel";
+import MenuPanel from 'c/app/MenuPanel'
 
 export default {
   components: {
-    MenuPanel
+    MenuPanel,
   },
-  props: ["avatar", "isEdit"],
+  props: ['avatar', 'isEdit'],
   methods: {
     handleSuccess(res) {
-      this.$refs.img.src = res.src;
-      this.$store.dispatch("updateAvatar", res.src);
-    }
-  }
-};
+      this.$refs.img.src = res.src
+      this.$store.dispatch('updateAvatar', res.src)
+    },
+  },
+}
 </script>

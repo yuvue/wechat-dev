@@ -39,7 +39,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import { userEdit } from '@/services/user'
 import MeHeader from 'c/me/MeHeader'
 import AddressBar from 'c/me/bars//AddressBar'

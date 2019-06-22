@@ -26,16 +26,16 @@
 </template>
 
 <script>
-import BaseHeader from "c/app/BaseHeader";
+import BaseHeader from 'c/app/BaseHeader'
 export default {
   components: {
-    BaseHeader
+    BaseHeader,
   },
-  props: ["isEdit", "changeEditState"],
+  props: ['isEdit', 'changeEditState'],
   methods: {
     //
-  }
-};
+  },
+}
 </script>
 
 <style scoped>

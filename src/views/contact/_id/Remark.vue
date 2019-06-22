@@ -17,24 +17,24 @@
 </template>
 
 <script>
-import BaseHeader from "c/app/BaseHeader";
+import BaseHeader from 'c/app/BaseHeader'
 
 export default {
-  name: "ContactRemark",
+  name: 'ContactRemark',
   components: {
-    BaseHeader
+    BaseHeader,
   },
   data() {
     return {
-      remark: ""
-    };
+      remark: '',
+    }
   },
   methods: {
     async onSubmit() {
-      let id = this.$store.state.contact.curContact.contact_id;
-      let remark = this.remark;
-      this.$store.dispatch("setRemark", { id, remark });
-    }
-  }
-};
+      let id = this.$store.state.contact.curContact.contact_id
+      let remark = this.remark
+      this.$store.dispatch('setRemark', { id, remark })
+    },
+  },
+}
 </script>

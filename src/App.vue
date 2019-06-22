@@ -1,7 +1,9 @@
 <template>
   <div id="app-container">
     <div id="app">
-      <router-view></router-view>
+      <keep-alive include="Moment">
+        <router-view></router-view>
+      </keep-alive>
     </div>
   </div>
 </template>

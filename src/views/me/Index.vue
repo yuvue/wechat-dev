@@ -37,26 +37,26 @@
 </template>
 
 <script>
-import BaseHeader from "c/app/BaseHeader";
-import BaseFooter from "c/app/BaseFooter";
-import MenuPanel from "c/app/MenuPanel";
-import MeCard from "c/me/MeCard";
-import { mapState } from "vuex";
+import BaseHeader from 'c/app/BaseHeader'
+import BaseFooter from 'c/app/BaseFooter'
+import MenuPanel from 'c/app/MenuPanel'
+import MeCard from 'c/me/MeCard'
+import { mapState } from 'vuex'
 
 export default {
-  name: "Me",
+  name: 'Me',
   components: {
     MeCard,
     BaseFooter,
     BaseHeader,
-    MenuPanel
+    MenuPanel,
   },
   computed: {
     ...mapState({
-      user: state => state.user.user
-    })
-  }
-};
+      user: state => state.user.user,
+    }),
+  },
+}
 </script>
 
 <style scoped lang="less"></style>

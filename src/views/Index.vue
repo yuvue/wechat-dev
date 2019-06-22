@@ -1,10 +1,10 @@
 <template>
   <div class="h-100">
-    <BaseHeader :text="count ? `微信 (${count})` : '微信'"> </BaseHeader>
+    <BaseHeader :text="count ? `微信 (${count})` : '微信'"></BaseHeader>
     <main class="main-top main-bottom">
       <ChatItem v-for="i in chats" :key="i._id" :contact="i"></ChatItem>
     </main>
-    <BaseFooter> </BaseFooter>
+    <BaseFooter></BaseFooter>
   </div>
 </template>
 
@@ -61,7 +61,7 @@ export default {
     BaseHeader,
     ChatItem,
   },
-  async asyncData({ store, route }) {
+  async asyncData({ store }) {
     setState(store)
   },
   activated() {

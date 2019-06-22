@@ -20,7 +20,7 @@ export default (method, url, params = {}, option = {}) => {
     url = concatURL(url, params)
   }
 
-  return new Promise((y, n) => {
+  return new Promise(y => {
     instance[method](url, params, { ...option })
       .then(res => {
         res && res.data && res.data.msg && Message.success(res.data.msg)

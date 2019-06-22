@@ -13,7 +13,9 @@
         </el-form>
         <div>
           <el-button type="primary" @click="submit">登录</el-button>
-          <el-button @click="$router.push('/register')" class="f-r">注册</el-button>
+          <el-button @click="$router.push('/register')" class="f-r"
+            >注册</el-button
+          >
         </div>
       </div>
     </main>

@@ -14,30 +14,30 @@
 
 <script>
 export default {
-  name: "ChatFooterText",
+  name: 'ChatFooterText',
   data() {
     return {
-      text: ""
-    };
+      text: '',
+    }
   },
   methods: {
     click() {
-      if (this.text === "")
+      if (this.text === '')
         return this.$notify.warning({
-          message: "发送内容不能为空",
-          duration: 0
-        });
+          message: '发送内容不能为空',
+          duration: 0,
+        })
       let data = {
-        type: "text",
-        text: this.text
-      };
-      this.$emit("send", "text", data);
-      this.text = "";
-    }
-  }
-};
+        type: 'text',
+        text: this.text,
+      }
+      this.$emit('send', 'text', data)
+      this.text = ''
+    },
+  },
+}
 </script>
 
 <style lang="less" scoped>
-@import "~css/modules/chat-footer";
+@import '~css/modules/chat-footer';
 </style>

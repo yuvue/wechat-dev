@@ -11,22 +11,22 @@
 </template>
 
 <script>
-import MenuPanel from "c/app/MenuPanel";
+import MenuPanel from 'c/app/MenuPanel'
 
 export default {
   components: {
-    MenuPanel
+    MenuPanel,
   },
-  props: ["nickname", "isEdit"],
+  props: ['nickname', 'isEdit'],
   data() {
     return {
-      val: this.nickname
-    };
+      val: this.nickname,
+    }
   },
   methods: {
     handleInput() {
-      this.$emit("editUser", "nickname", this.val);
-    }
-  }
-};
+      this.$emit('editUser', 'nickname', this.val)
+    },
+  },
+}
 </script>

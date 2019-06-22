@@ -9,8 +9,8 @@
 
 <script>
 export default {
-  name: "MenuPanel"
-};
+  name: 'MenuPanel',
+}
 </script>
 
 <style scoped>
