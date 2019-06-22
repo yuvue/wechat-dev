@@ -14,11 +14,9 @@
 import CardScroll from 'c/CardScroll'
 import BaseHeader from 'c/app/BaseHeader'
 import BaseFooter from 'c/app/BaseFooter'
-import scroll from '@/mixins/scroll'
 
 export default {
   name: 'Moment',
-  mixins: [scroll],
   components: {
     CardScroll,
     BaseFooter,
